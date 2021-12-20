@@ -1,0 +1,6 @@
+ubuntu-restricted-extras
+synaptic
+gnome-tweaks
+qbittorrent
+gimp
+bleachbit

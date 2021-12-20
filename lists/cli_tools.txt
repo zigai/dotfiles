@@ -1,0 +1,14 @@
+curl
+fish
+bat
+fzf
+autojump
+tmux
+youtube-dl
+fdupes
+ranger
+shellcheck
+cloc
+neofetch
+unzip
+neovim
