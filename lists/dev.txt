@@ -1,5 +1,6 @@
 ruby
 nodejs
+npm
 rustc
 cargo
 build-essential

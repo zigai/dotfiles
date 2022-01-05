@@ -42,34 +42,6 @@ def apt_install_from_list(list_path: str):
     print("Done.\n")
 
 
-def setup_bashrc():
-    run("cp ./config_files/.bashrc ~/.bashrc")
-
-
-def setup_dev():
-    apt_install_from_list(LIST_DEV)
-
-
-def setup_cli():
-    apt_install_from_list(LIST_CLI_TOOLS)
-
-    run("sudo apt-get install rubygems -y")
-    run("sudo bash ./install_scripts/python3.10.sh")
-    run("sudo bash ./install_scripts/lsd.sh")
-    run("sudo bash ./install_scripts/croc.sh")
-    run("sudo bash ./install_scripts/spacevim.sh")
-
-
-def setup_gui():
-    apt_install_from_list(LIST_GUI_APT_APPS)
-    run("sudo bash ./install_scripts/jetbrains_toolbox.sh")
-    run("sudo bash ./install_scripts/appimage_launcher.sh")
-
-
-def setup_firefox_tweaks():
-    run("sudo bash ./install_scripts/firefox_tweaks.sh")
-
-
 if __name__ == '__main__':
     if len(argv) < 2:
         exit(os.system(f"python3 {argv[0]} --help"))
@@ -80,13 +52,24 @@ if __name__ == '__main__':
     ap.add_argument("--dev", action="store_true")
     ap.add_argument("--bashrc", action="store_true")
     ap.add_argument("--firefox-tweaks", action="store_true")
+    ap.add_argument("--run-install-scripts", action="store_true")
     args = ap.parse_args()
 
     if args.dev:
-        setup_dev()
+        apt_install_from_list(LIST_DEV)
     if args.cli:
-        setup_cli()
+        apt_install_from_list(LIST_CLI_TOOLS)
+        run("sudo apt-get install rubygems -y")
     if args.gui:
-        setup_gui()
+        apt_install_from_list(LIST_GUI_APT_APPS)
+    if args.bashrc:
+        run("cp ./config_files/.bashrc ~/.bashrc")
     if args.firefox_tweaks:
-        setup_firefox_tweaks()
+        run("sudo bash ./install_scripts/firefox_tweaks.sh")
+    if args.run_install_scripts:
+        run("sudo bash ./install_scripts/python3.10.sh")
+        run("sudo bash ./install_scripts/lsd.sh")
+        run("sudo bash ./install_scripts/croc.sh")
+        run("sudo bash ./install_scripts/spacevim.sh")
+        run("sudo bash ./install_scripts/jetbrains_toolbox.sh")
+        run("sudo bash ./install_scripts/appimage_launcher.sh")
