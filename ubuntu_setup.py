@@ -1,6 +1,5 @@
 import os
 from sys import platform, argv
-from argparse import ArgumentParser
 
 if platform != "linux":
     print(f"Not linux. ({platform})")
@@ -42,34 +41,79 @@ def apt_install_from_list(list_path: str):
     print("Done.\n")
 
 
+def cli():
+    apt_install_from_list(LIST_CLI_TOOLS)
+
+
+def dev():
+    apt_install_from_list(LIST_DEV)
+    run("pip3 install yapf")
+
+
+def gui():
+    apt_install_from_list(LIST_GUI_APT_APPS)
+
+
+def bashrc():
+    run("cp  ~/.bashrc ~/.bashrc.old")
+    print(".bashrc file backed up to '~/.bashrc.old'")
+    run("cp ./config_files/.bashrc ~/.bashrc")
+
+
+def ff_tweaks():
+    run("sudo bash ./install_scripts/firefox_tweaks.sh")
+
+
+def oracle_vb():
+    run("sudo apt update")
+    run("sudo apt install -y --reinstall virtualbox-guest-x11")
+    l = ["virtualbox-guest-utils-hwe", "virtualbox-guest-x11-hwe"]
+    for i in l:
+        apt_install(i)
+
+
+def install_scripts():
+    scripts = os.scandir("./install_scripts")
+    for i in scripts:
+        run(f"sudo bash {i.path}")
+
+
 if __name__ == '__main__':
     if len(argv) < 2:
         exit(os.system(f"python3 {argv[0]} --help"))
 
+    from argparse import ArgumentParser
     ap = ArgumentParser()
+    ap.add_argument("--all", action="store_true")
     ap.add_argument("--cli", action="store_true")
     ap.add_argument("--gui", action="store_true")
     ap.add_argument("--dev", action="store_true")
     ap.add_argument("--bashrc", action="store_true")
     ap.add_argument("--firefox-tweaks", action="store_true")
     ap.add_argument("--run-install-scripts", action="store_true")
+    ap.add_argument("--oracle-vb", action="store_true")
     args = ap.parse_args()
 
+    if args.all:
+        dev()
+        cli()
+        gui()
+        bashrc()
+        ff_tweaks()
+        install_scripts()
+        exit(0)
+
     if args.dev:
-        apt_install_from_list(LIST_DEV)
+        dev()
     if args.cli:
-        apt_install_from_list(LIST_CLI_TOOLS)
-        run("sudo apt-get install rubygems -y")
+        cli()
     if args.gui:
-        apt_install_from_list(LIST_GUI_APT_APPS)
+        gui()
     if args.bashrc:
-        run("cp ./config_files/.bashrc ~/.bashrc")
+        bashrc()
     if args.firefox_tweaks:
-        run("sudo bash ./install_scripts/firefox_tweaks.sh")
+        ff_tweaks()
+    if args.oracle_vb:
+        oracle_vb()
     if args.run_install_scripts:
-        run("sudo bash ./install_scripts/python3.10.sh")
-        run("sudo bash ./install_scripts/lsd.sh")
-        run("sudo bash ./install_scripts/croc.sh")
-        run("sudo bash ./install_scripts/spacevim.sh")
-        run("sudo bash ./install_scripts/jetbrains_toolbox.sh")
-        run("sudo bash ./install_scripts/appimage_launcher.sh")
+        install_scripts()
