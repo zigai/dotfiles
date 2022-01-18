@@ -1,9 +1,10 @@
-ruby
+python3-pip
 nodejs
 npm
+ruby-full
 rustc
 cargo
 build-essential
-python3-pip
+valgrind
 ipython3
 golang-go
