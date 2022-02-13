@@ -1,7 +1,7 @@
 python3-pip
 nodejs
 npm
-ruby-full
+ruby
 rustc
 cargo
 build-essential
