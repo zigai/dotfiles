@@ -1,1 +1,1 @@
-# ubuntu-setup
+# dotfiles
