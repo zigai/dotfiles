@@ -1,0 +1,108 @@
+{
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style={based_on_style: google, column_limit: 100, indent_width: 4}"
+    ],
+    "python.terminal.executeInFileDir": true,
+    "python.terminal.launchArgs": [],
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.autoImportCompletions": false,
+    "python.analysis.typeCheckingMode": "off",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pylintArgs": [
+        "--disable=C0303,W0603"
+    ],
+    "python.defaultInterpreterPath": "C:\\Program Files\\Python39\\python.exe",
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "terminal.explorerKind": "external",
+    "workbench.activityBar.visible": true,
+    "editor.fontFamily": "\"JetBrains Mono\"",
+    "editor.fontSize": 16,
+    "editor.fontLigatures": false,
+    "editor.fontWeight": "450",
+    "editor.rulers": [
+        100
+    ],
+    "editor.wordWrapColumn": 100,
+    "yaml.format.printWidth": 100,
+    "telemetry.telemetryLevel": "off",
+    "path-intellisense.showHiddenFiles": true,
+    "redhat.telemetry.enabled": false,
+    "workbench.enableExperiments": false,
+    "editor.cursorStyle": "block",
+    "window.zoomLevel": -1,
+    "workbench.iconTheme": "material-icon-theme",
+    "explorer.confirmDelete": true,
+    "explorer.confirmDragAndDrop": false,
+    "editor.suggestSelection": "first",
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.autoIndent": "advanced"
+    },
+    "terminal.external.windowsExec": "C:\\Windows\\System32\\cmd.exe",
+    "workbench.colorCustomizations": {},
+    "editor.codeLens": false,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "entity.name.label",
+                "settings": {
+                    "foreground": "#FF0000",
+                    "fontStyle": " bold"
+                }
+            }
+        ]
+    },
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.startupEditor": "newUntitledFile",
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "json.schemas": [],
+    "[json]": {},
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    },
+    "go.formatTool": "gofmt",
+    "c-cpp-compile-run.run-in-external-terminal": true,
+
+}
