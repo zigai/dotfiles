@@ -9,6 +9,7 @@ LIST_CLI_TOOLS = "./lists/cli_tools.txt"
 LIST_DEV = "./lists/dev.txt"
 LIST_GUI_APT_APPS = "./lists/gui_apt_apps.txt"
 LIST_GUI_SNAP_APPS = "./lists/gui_snap_apps.txt"
+LIST_PIP = "./lists/pip.txt"
 
 
 def file_readlines(filepath: str):
@@ -47,16 +48,19 @@ def cli():
 
 def dev():
     apt_install_from_list(LIST_DEV)
-    run("pip3 install yapf")
+    run("pip3 install yapf pretty_errors ")
 
 
 def gui():
     apt_install_from_list(LIST_GUI_APT_APPS)
+    pip = file_readlines(LIST_PIP)
+    for i in pip:
+        run(f"pip install {i}")
 
 
 def bashrc():
     run("cp  ~/.bashrc ~/.bashrc.old")
-    print(".bashrc file backed up to '~/.bashrc.old'")
+    print("Current .bashrc file backed up to '~/.bashrc.old'")
     run("cp ./config_files/.bashrc ~/.bashrc")
 
 
@@ -72,7 +76,7 @@ def oracle_vb():
         apt_install(i)
 
 
-def install_scripts():
+def run_install_scripts():
     scripts = os.scandir("./install_scripts")
     for i in scripts:
         run(f"sudo bash {i.path}")
@@ -100,7 +104,7 @@ if __name__ == '__main__':
         gui()
         bashrc()
         ff_tweaks()
-        install_scripts()
+        run_install_scripts()
         exit(0)
 
     if args.dev:
@@ -116,4 +120,4 @@ if __name__ == '__main__':
     if args.oracle_vb:
         oracle_vb()
     if args.run_install_scripts:
-        install_scripts()
+        run_install_scripts()
