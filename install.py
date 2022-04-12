@@ -1,5 +1,5 @@
 import os
-from sys import platform, argv
+from sys import argv, platform
 
 if platform != "linux":
     print(f"Not linux. ({platform})")
@@ -31,9 +31,8 @@ def apt_install(program: str):
     run(command)
 
 
-def apt_install_from_list(list_path: str):
-    l = file_readlines(list_path)
-    for i in l:
+def apt_install_from_list(path: str):
+    for i in file_readlines(path):
         if i[0] == "#":
             print(f"Skipping '{i}' (comment)")
             continue
@@ -53,15 +52,14 @@ def dev():
 
 def gui():
     apt_install_from_list(LIST_GUI_APT_APPS)
-    pip = file_readlines(LIST_PIP)
-    for i in pip:
+    for i in file_readlines(LIST_PIP):
         run(f"pip install {i}")
 
 
 def bashrc():
     run("cp  ~/.bashrc ~/.bashrc.old")
     print("Current .bashrc file backed up to '~/.bashrc.old'")
-    run("cp ./config_files/.bashrc ~/.bashrc")
+    run("cp ./dotfiles/.bashrc ~/.bashrc")
 
 
 def ff_tweaks():
@@ -76,12 +74,6 @@ def oracle_vb():
         apt_install(i)
 
 
-def run_install_scripts():
-    scripts = os.scandir("./install_scripts")
-    for i in scripts:
-        run(f"sudo bash {i.path}")
-
-
 if __name__ == '__main__':
     if len(argv) < 2:
         exit(os.system(f"python3 {argv[0]} --help"))
@@ -94,7 +86,6 @@ if __name__ == '__main__':
     ap.add_argument("--dev", action="store_true")
     ap.add_argument("--bashrc", action="store_true")
     ap.add_argument("--firefox-tweaks", action="store_true")
-    ap.add_argument("--run-install-scripts", action="store_true")
     ap.add_argument("--oracle-vb", action="store_true")
     args = ap.parse_args()
 
@@ -104,7 +95,6 @@ if __name__ == '__main__':
         gui()
         bashrc()
         ff_tweaks()
-        run_install_scripts()
         exit(0)
 
     if args.dev:
@@ -119,5 +109,3 @@ if __name__ == '__main__':
         ff_tweaks()
     if args.oracle_vb:
         oracle_vb()
-    if args.run_install_scripts:
-        run_install_scripts()
