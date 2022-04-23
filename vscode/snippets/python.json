@@ -1,0 +1,70 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"main": {
+		"prefix": "main",
+		"body": [
+		  "def main():",
+		  "    pass",
+		  "",
+		  "if __name__ == '__main__':",
+		  "    main()"
+		],
+		"description": "main"
+	  }
+	 
+	  ,
+	  "setup.py": {
+		"prefix": "setuppy",
+		"body": [
+		  "from setuptools import find_packages, setup",
+		  "import pathlib",
+		  "",
+		  "HERE = pathlib.Path(__file__).parent",
+		  "README = (HERE / \"README.md\").read_text()",
+		  "REQUIREMENTS = (HERE / \"requirements.txt\").read_text()",
+		  "",
+		  "setup(name=\"\",",
+		  "      version=\"0.0.1\",",
+		  "      description=\"\",",
+		  "      long_description=README,",
+		  "      long_description_content_type=\"text/markdown\",",
+		  "      author=\"Ziga Ivansek\",",
+		  "      author_email=\"ziga.ivansek@gmail.com\",",
+		  "      url=\"\",",
+		  "      license=\"MIT\",",
+		  "      classifiers=[",
+		  "          \"Programming Language :: Python\",",
+		  "          \"Programming Language :: Python :: 3.8\",",
+		  "          \"Programming Language :: Python :: 3.9\",",
+		  "          \"Programming Language :: Python :: 3.10\",",
+		  "          \"Programming Language :: Python :: 3 :: Only\",",
+		  "          \"Topic :: Software Development :: Libraries :: Python Modules\",",
+		  "      ],",
+		  "      packages=find_packages(),",
+		  "      install_requires=REQUIREMENTS)"
+		],
+		"description": "setup.py"
+	  },
+	  "debug": {
+		"prefix": "debg",
+		"body": [
+		  "import pretty_errors",
+		  "from pprint import pprint, pp"
+		],
+		"description": "debug"
+	  }
+}
+

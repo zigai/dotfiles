@@ -20,8 +20,7 @@ def file_readlines(filepath: str):
 def run(cmd: str):
     r = os.system(cmd)
     if r != 0:
-        print(f"Command '{cmd}' failed. Exit code: {r}")
-        print("Stopping.")
+        print(f"Command '{cmd}' failed. Exit code: {r}\nStopping.")
         exit(r)
 
 
@@ -47,13 +46,10 @@ def cli():
 
 def dev():
     apt_install_from_list(LIST_DEV)
-    run("pip3 install yapf pretty_errors ")
 
 
 def gui():
     apt_install_from_list(LIST_GUI_APT_APPS)
-    for i in file_readlines(LIST_PIP):
-        run(f"pip install {i}")
 
 
 def bashrc():
@@ -64,6 +60,11 @@ def bashrc():
 
 def ff_tweaks():
     run("sudo bash ./install_scripts/firefox_tweaks.sh")
+
+
+def pip():
+    for i in file_readlines(LIST_PIP):
+        run(f"pip install {i}")
 
 
 def oracle_vb():
@@ -84,6 +85,7 @@ if __name__ == '__main__':
     ap.add_argument("--cli", action="store_true")
     ap.add_argument("--gui", action="store_true")
     ap.add_argument("--dev", action="store_true")
+    ap.add_argument("--pip", action="store_true")
     ap.add_argument("--bashrc", action="store_true")
     ap.add_argument("--firefox-tweaks", action="store_true")
     ap.add_argument("--oracle-vb", action="store_true")
@@ -93,12 +95,15 @@ if __name__ == '__main__':
         dev()
         cli()
         gui()
+        pip()
         bashrc()
         ff_tweaks()
         exit(0)
 
     if args.dev:
         dev()
+    if args.pip():
+        pip()
     if args.cli:
         cli()
     if args.gui:

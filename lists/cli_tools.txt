@@ -5,7 +5,6 @@ fish
 cloc
 fzf
 tmux
-youtube-dl
 fdupes
 shellcheck
 neofetch
