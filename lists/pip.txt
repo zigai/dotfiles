@@ -2,4 +2,5 @@ pipreqs
 pretty_errors
 yapf
 stdl
-youtube_dl
+yt-dlp
+jc

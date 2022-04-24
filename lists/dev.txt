@@ -1,10 +1,12 @@
+build-essential
+rustc
+cargo
 python3-pip
 nodejs
 npm
 ruby
-rustc
-cargo
-build-essential
 valgrind
 ipython3
 golang-go
+default-jdk
+default-jre

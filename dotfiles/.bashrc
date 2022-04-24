@@ -138,7 +138,7 @@ extract () {
 }
 
 # Searches for text in all files in the current folder
-ftext ()
+ftxt ()
 {
     # -i case-insensitive
     # -I ignore binary files
@@ -150,11 +150,24 @@ ftext ()
     grep -iIHrn --color=always "$1" .
 }
 
-ytmp3(){
-    youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" "$1"
+ytmp3()
+{
+    yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" "$1"
 }
 
-# my aliases
+# Open file explorer
+fe()
+{
+    if [[ $# -eq 0 ]]
+    then
+        xdg-open . &
+    elif [[ $# -eq 1 ]]
+    then 
+        xdg-open "$1" &
+    fi
+}
+
+# Aliases
 alias ..="cd .."
 alias ...="cd .. && cd .."
 alias cd..="cd .."
@@ -179,20 +192,26 @@ alias cls="clear"
 alias python="python3"
 alias py="python3"
 alias py3="python3"
-alias py3.10="python3.10"
 alias ipy="ipython3"
 
 alias gp="git push"
-alias gpull="git pull"
+alias ga="git add ."
+alias gpl="git pull"
+alias gpl="git pull"
+alias gcm="git commit -m '$1'"
 
-alias preq="pip install -r ./requirements.txt"
+alias pir="pip install -r ./requirements.txt"
+alias prq="pipreqs . --force"
+
 alias myip="curl http://ipecho.net/plain; echo"
 alias path='printf "%b\n" "${PATH//:/\\n}"'
 alias ai="sudo apt install $1"
-alias fe="xdg-open ."
-alias fw="xdg-open $1"
-alias bashrc="vim ~/.bashrc"
+alias bashrc="nvim ~/.bashrc"
 alias cat='batcat --paging=never --plain'
 alias free="free -m"
 alias df="df -h"
 alias ex="extract"
+alias tmxa="tmux attach-session -t $1"
+
+export PATH="$HOME/.cargo/bin:$PATH"
+source $HOME/.config/broot/launcher/bash/br

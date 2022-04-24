@@ -12,3 +12,4 @@ unzip
 ffmpeg
 sox
 wine
+pdfgrep

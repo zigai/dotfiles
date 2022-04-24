@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# https://gist.github.com/greeflas/431bc50c23532eee8a7d6c1d603f3921
 set -e
 
 if [ -d ~/.local/share/JetBrains/Toolbox ]; then

@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 # https://programmaticponderings.com/2013/12/19/scripting-linux-swap-space/
 
 if test "$#" -ne 1; then
-    echo "usage: $0 <swap_size (GB)>"
+    echo "usage: $0 <size (GB)>"
     exit 1
 fi
 

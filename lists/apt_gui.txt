@@ -2,8 +2,8 @@ ubuntu-restricted-extras
 synaptic
 gnome-tweaks
 qbittorrent
-gimp
 bleachbit
 virtualbox
 vlc
 obs-studio
+nemo
