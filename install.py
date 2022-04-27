@@ -12,6 +12,7 @@ LIST_PIP = "./lists/pip.txt"
 LIST_GUI_APT = "./lists/apt_gui.txt"
 LIST_GUI_SNAP = "./lists/snap_gui.txt"
 LIST_GUI_FLATPAK = "./lists/flatpak_gui.txt"
+LIST_VSCODE_EXT = "./lists/vscode_extensions.txt"
 
 
 def file_splitlines(filepath: str):
@@ -85,6 +86,11 @@ def pip():
         run(f"pip install {i}")
 
 
+def vscode_extensions():
+    for i in file_splitlines(LIST_VSCODE_EXT):
+        run(f"code --install-extension {i}")
+
+
 def virtual_box():
     run("sudo apt update")
     run("sudo apt install -y --reinstall virtualbox-guest-x11")
@@ -106,6 +112,7 @@ if __name__ == '__main__':
     ap.add_argument("--pip", action="store_true")
     ap.add_argument("--bashrc", action="store_true")
     ap.add_argument("--firefox-tweaks", action="store_true")
+    ap.add_argument("--vscode-extensions", action="store_true")
     ap.add_argument("--virtual-box", action="store_true")
     args = ap.parse_args()
 
@@ -132,3 +139,5 @@ if __name__ == '__main__':
         virtual_box()
     if args.bashrc:
         bashrc()
+    if args.vscode_extensions:
+        vscode_extensions()
