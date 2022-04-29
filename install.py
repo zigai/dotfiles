@@ -76,10 +76,6 @@ def bashrc():
     print("done.")
 
 
-def ff_ui_fix():
-    run("sudo bash ./scripts/install_firefox_tweaks.sh")
-
-
 def pip():
     for i in file_splitlines(LIST_PIP):
         print(f"\n[pip] installing '{i}'")
@@ -105,39 +101,42 @@ if __name__ == '__main__':
 
     from argparse import ArgumentParser
     ap = ArgumentParser()
-    ap.add_argument("--all", action="store_true")
-    ap.add_argument("--cli", action="store_true")
-    ap.add_argument("--gui", action="store_true")
-    ap.add_argument("--dev", action="store_true")
-    ap.add_argument("--pip", action="store_true")
-    ap.add_argument("--bashrc", action="store_true")
-    ap.add_argument("--firefox-tweaks", action="store_true")
-    ap.add_argument("--vscode-extensions", action="store_true")
-    ap.add_argument("--virtual-box", action="store_true")
+    ap.add_argument("--cli", action="store_true", help="Command line tools")
+    ap.add_argument("--gui", action="store_true", help="GUI applications")
+    ap.add_argument("--dev", action="store_true", help="Develpment tools")
+    ap.add_argument("--pip",
+                    action="store_true",
+                    help="CLI applications and essential Python packages")
+    ap.add_argument("--bashrc",
+                    action="store_true",
+                    help="Install my .bashrc. Backs up the old one")
+    ap.add_argument("--vscode-extensions",
+                    action="store_true",
+                    help="Visual Studio Code extensions")
+    ap.add_argument("--virtual-box", action="store_true", help="VirtualBox Guest Additions")
+    ap.add_argument("--all",
+                    action="store_true",
+                    help="Run all other options except --gui and --virtual-box")
     args = ap.parse_args()
 
     if args.all:
         dev()
         cli()
-        gui()
         pip()
         bashrc()
-        ff_ui_fix()
         exit(0)
 
     if args.dev:
         dev()
-    if args.pip:
-        pip()
     if args.cli:
         cli()
     if args.gui:
         gui()
-    if args.firefox_tweaks:
-        ff_ui_fix()
     if args.virtual_box:
         virtual_box()
     if args.bashrc:
         bashrc()
+    if args.pip:
+        pip()
     if args.vscode_extensions:
         vscode_extensions()
