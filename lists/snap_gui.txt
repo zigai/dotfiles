@@ -1,5 +1,3 @@
 spotify
 foliate
-discord
-onlyoffice-desktopeditors
 downloader2
