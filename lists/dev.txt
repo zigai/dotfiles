@@ -2,8 +2,6 @@ build-essential
 rustc
 cargo
 python3-pip
-nodejs
-npm
 ruby
 valgrind
 ipython3

@@ -30,6 +30,7 @@
     "editor.rulers": [
         100
     ],
+    "explorer.sortOrder": "type",
     "editor.wordWrapColumn": 100,
     "yaml.format.printWidth": 100,
     "telemetry.telemetryLevel": "off",
@@ -93,16 +94,15 @@
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
-        },
+        }
     },
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
-        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
     },
     "go.formatTool": "gofmt",
-    "c-cpp-compile-run.run-in-external-terminal": true,
-
+    "c-cpp-compile-run.run-in-external-terminal": true
 }
