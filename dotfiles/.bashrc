@@ -208,10 +208,8 @@ alias path='printf "%b\n" "${PATH//:/\\n}"'
 alias ai="sudo apt install $1"
 alias bashrc="nvim ~/.bashrc"
 alias cat='batcat --paging=never --plain'
-alias free="free -m"
 alias df="df -h"
 alias ex="extract"
 alias tmxa="tmux attach-session -t $1"
 
 export PATH="$HOME/.cargo/bin:$PATH"
-source $HOME/.config/broot/launcher/bash/br

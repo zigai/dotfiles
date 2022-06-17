@@ -11,7 +11,7 @@ LIST_DEV = "./lists/dev.txt"
 LIST_PIP = "./lists/pip.txt"
 LIST_GUI_APT = "./lists/apt_gui.txt"
 LIST_GUI_SNAP = "./lists/snap_gui.txt"
-LIST_GUI_FLATPAK = "./lists/flatpak_gui.txt"
+LIST_FLATPAK = "./lists/flatpak.txt"
 LIST_VSCODE_EXT = "./lists/vscode_extensions.txt"
 
 
@@ -45,11 +45,10 @@ def apt_install_from_list(path: str):
 
 def cli():
     apt_install_from_list(LIST_CLI_TOOLS)
-    cargo_list = ["choose", "broot", "lsd"]
+    cargo_list = ["choose", "lsd"]
     for i in cargo_list:
         run(f"cargo install {i}")
-    run("/scripts/install_appimage_launcer.sh")
-    run("/scripts/install_croc.sh")
+    run("bash scripts/install_croc.sh")
 
 
 def dev():
@@ -58,12 +57,13 @@ def dev():
 
 def gui():
     apt_install_from_list(LIST_GUI_APT)
+    run("./scripts/install_appimage_launcer.sh")
 
     for i in file_splitlines(LIST_GUI_SNAP):
         print(f"\n[snap] installing '{i}'")
         run(f"sudo snap install {i}")
 
-    for i in file_splitlines(LIST_GUI_FLATPAK):
+    for i in file_splitlines(LIST_FLATPAK):
         print(f"\n[flatpak] installing '{i}'")
         run(f"flatpak install flathub {i}")
 

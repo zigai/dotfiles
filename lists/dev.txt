@@ -3,7 +3,6 @@ rustc
 cargo
 python3-pip
 ruby
-valgrind
 ipython3
 golang-go
 default-jdk
