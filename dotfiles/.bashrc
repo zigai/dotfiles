@@ -213,3 +213,4 @@ alias ex="extract"
 alias tmxa="tmux attach-session -t $1"
 
 export PATH="$HOME/.cargo/bin:$PATH"
+LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
