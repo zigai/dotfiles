@@ -1,0 +1,3 @@
+#!/bin/bash
+# https://gist.github.com/greeflas/431bc50c23532eee8a7d6c1d603f3921
+curl https://gist.githubusercontent.com/greeflas/431bc50c23532eee8a7d6c1d603f3921/raw | bash
