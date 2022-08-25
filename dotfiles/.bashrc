@@ -137,35 +137,6 @@ extract () {
     done
 }
 
-# Searches for text in all files in the current folder
-ftxt ()
-{
-    # -i case-insensitive
-    # -I ignore binary files
-    # -H causes filename to be printed
-    # -r recursive search
-    # -n causes line number to be printed
-    # optional: -F treat search term as a literal, not a regular expression
-    # optional: -l only print filenames and not the matching lines ex. grep -irl "$1" *
-    grep -iIHrn --color=always "$1" .
-}
-
-ytmp3()
-{
-    yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" "$1"
-}
-
-# Open file explorer
-fe()
-{
-    if [[ $# -eq 0 ]]
-    then
-        xdg-open . &
-    elif [[ $# -eq 1 ]]
-    then 
-        xdg-open "$1" &
-    fi
-}
 
 # Aliases
 alias ..="cd .."
@@ -198,7 +169,7 @@ alias gp="git push"
 alias ga="git add ."
 alias gpl="git pull"
 alias gpl="git pull"
-alias gcm="git commit -m '$1'"
+alias gd="git diff"
 
 alias pir="pip install -r ./requirements.txt"
 alias prq="pipreqs . --force"
@@ -212,5 +183,6 @@ alias df="df -h"
 alias ex="extract"
 alias tmxa="tmux attach-session -t $1"
 
+. ~/z.sh
 export PATH="$HOME/.cargo/bin:$PATH"
 LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
