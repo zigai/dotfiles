@@ -1,9 +1,0 @@
-ubuntu-restricted-extras
-synaptic
-gnome-tweaks
-qbittorrent
-bleachbit
-virtualbox
-vlc
-obs-studio
-nemo

@@ -1,6 +1,0 @@
-pipreqs
-pretty_errors
-yapf
-stdl
-yt-dlp
-jc

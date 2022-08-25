@@ -1,3 +1,0 @@
-spotify
-foliate
-downloader2
