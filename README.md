@@ -1,18 +1,17 @@
 # dotfiles
 
-## install.py usage
+## install usage
 ```
-usage: install.py [-h] [--cli] [--gui] [--dev] [--pip] [--bashrc] [--vscode-extensions] [--virtual-box] [--all]
+usage: install [-h] [-dotfiles] [-dev] [-essential] [-gui] [-tools] [-virtualbox_guest]
 
 options:
-  -h, --help           show this help message and exit
-  --cli                Command line tools
-  --gui                GUI applications
-  --dev                Develpment tools
-  --pip                CLI applications and essential Python packages
-  --bashrc             Install my .bashrc and back up the old one
-  --vscode-extensions  Visual Studio Code extensions
-  --virtual-box        VirtualBox Guest Additions
-  --all                Run all other options except --gui and --virtual-box
+  -h, --help         show this help message and exit
+  -dotfiles
+  -dev
+  -essential
+  -gui
+  -tools
+  -virtualbox_guest
+
 
 ```
