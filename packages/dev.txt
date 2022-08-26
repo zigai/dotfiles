@@ -40,7 +40,6 @@ stdl
 black
 yapf
 pretty_errors
-playwright && playwright install
 
 [snap]
 docker

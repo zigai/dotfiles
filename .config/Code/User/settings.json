@@ -1,0 +1,124 @@
+{
+    "C_Cpp.default.cppStandard": "c++20",
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true
+    },
+    "[go]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.formatOnSave": true
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.formatOnSave": true
+    },
+    "[json]": {
+        "editor.formatOnSave": true
+    },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.autoIndent": "advanced",
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "c-cpp-compile-run.run-in-external-terminal": true,
+    // Editor
+    "editor.codeActionsOnSave": {},
+    "editor.codeLens": false,
+    "editor.cursorStyle": "block",
+    "editor.fontFamily": "JetBrains Mono, Fira Code, monospace",
+    "editor.fontLigatures": false,
+    "editor.fontSize": 16,
+    "editor.fontWeight": "450",
+    "editor.minimap.showSlider": "always",
+    "editor.rulers": [
+        100
+    ],
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "entity.name.label",
+                "settings": {
+                    "fontStyle": " bold",
+                    "foreground": "#FF0000"
+                }
+            }
+        ]
+    },
+    "editor.wordWrapColumn": 100,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.sortOrder": "type",
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "extensions.ignoreRecommendations": true,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "jupyter.jupyterServerType": "local",
+    "launch": {
+        "compounds": [],
+        "configurations": []
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "path-intellisense.showHiddenFiles": true,
+    // Python
+    "python.analysis.autoImportCompletions": false,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.formatting.blackArgs": [
+        "--line-length 100"
+    ],
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style={based_on_style: google, column_limit: 100, indent_width: 4}"
+    ],
+    "python.languageServer": "Pylance",
+    "python.linting.pylintArgs": [
+        "--disable=C0303,W0603"
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.terminal.executeInFileDir": true,
+    "python.terminal.launchArgs": [],
+    "redhat.telemetry.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "telemetry.telemetryLevel": "off",
+    "terminal.explorerKind": "external",
+    "terminal.external.windowsExec": "C:\\Windows\\System32\\cmd.exe",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": -2,
+    // Workbench
+    "workbench.activityBar.visible": true,
+    "workbench.colorCustomizations": {},
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "workbench.enableExperiments": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile",
+    "yaml.format.printWidth": 100
+}
