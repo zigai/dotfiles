@@ -49,6 +49,9 @@ class PackageManager:
         self.failed = defaultdict(list)
         self.total = 0
         self.n_succesfull = 0
+        self.available = self.is_available()
+        if not self.available:
+            print(f"{self.binary} is not available.")
 
     def __enter__(self):
         return self
@@ -89,12 +92,15 @@ class PackageManager:
         }
 
     def __run(self, template: str, name: str):
+        self.total += 1
+        if not self.available:
+            self.failed[template].append(name)
+            return
         sudo = "sudo" if self.sudo else ""
         template = self.__get_template(template)
         template = template.replace("{name}", name)
         command = f"{sudo} {self.binary} {template} {self.autoconfirm}"
         r = run_cmd(command=command)
-        self.total += 1
         if r != 0:
             self.failed[template].append(name)
         else:
@@ -243,7 +249,7 @@ def install_dotfiles():
 
 
 def install_bin():
-    progs = os.scandir("./cli")
+    progs = os.scandir("./bin")
     progs = [i.path for i in progs if i.is_file()]
     for i in progs:
         name = os.path.basename(i)
