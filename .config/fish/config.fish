@@ -7,6 +7,8 @@ set fish_greeting ""
 
 set -g theme_color_scheme terminal-dark
 
+alias sudo 'sudo '
+
 alias cd.. "cd .."
 alias cd. "pwd"
 alias h "cd ~"
@@ -34,8 +36,9 @@ alias ipy "ipython3"
 alias gp "git push"
 alias ga "git add ."
 alias gpl "git pull"
-alias gpl "git pull"
-alias gcm "git commit -m '$1'"
+alias gs "git status -sb"
+alias gc "git commit"
+alias checkout "git checkout"
 
 alias pir "pip install -r ./requirements.txt"
 alias prq "pipreqs . --force"
