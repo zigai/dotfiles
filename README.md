@@ -9,7 +9,7 @@ Settings for:
 
 
 ## packages
-Inside the ```packages``` folder there are lists of packages that can be install with the ```./INSTALL``` script.
+Inside the ```packages``` folder there are lists of packages that can be install with ```./INSTALL```.
 
 Package lists are structured package manager name inside brackets followed by package name to install with it, each on a new line.
 
