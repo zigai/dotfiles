@@ -5,7 +5,7 @@
 Settings for:
 - bash
 - fish
-- Visual Studio Code ```settings.json``` and snippets.
+- Visual Studio Code
 
 
 ## packages
