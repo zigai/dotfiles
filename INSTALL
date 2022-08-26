@@ -36,16 +36,15 @@ def find_bin(name: str):
 
 
 class PackageManager:
-    templates: dict[str, str]
-    sudo: bool = False
-    dont_ask: bool = True
-    platforms = NOT_SPECIFIED
-    autoconfirm: str = None
+    templates: dict[str, str]  # command templates for installing, removing and updating a package
+    sudo: bool = False  # run with sudo
+    platforms = NOT_SPECIFIED  # platfroms package manager is supported on
+    dont_ask: bool = True  # don't ask for conformation when installing packages. needs 'autoconfirm' to be set to work.
+    autoconfirm: str = None  # flag that makes the package manager not ask for conformation when installing a package
 
     def __init__(self) -> None:
         self.binary = self.__class__.__name__
         if self.dont_ask and self.autoconfirm is None:
-            # print(f"warning: 'auto_confirm' flag is not set for {self.binary}")
             self.autoconfirm = ""
         self.failed = defaultdict(list)
         self.total = 0
@@ -77,7 +76,7 @@ class PackageManager:
         return find_bin(self.binary)
 
     def is_supported(self):
-        """Check if the package manager is supported on your OS"""
+        """Check if the package manager is supported on your platform"""
         if len(self.platforms) == 0:
             return True
         return sys.platform in self.platforms
@@ -88,9 +87,6 @@ class PackageManager:
             "succesfull": self.n_succesfull,
             "failed": dict(self.failed),
         }
-
-    def install_package_manager(self):
-        pass
 
     def __run(self, template: str, name: str):
         sudo = "sudo" if self.sudo else ""
@@ -164,6 +160,7 @@ class snap(PackageManager):
         "remove": "remove {name}",
         "update": "refresh {name} -U",
     }
+    platforms = LINUX
 
 
 class flatpak(PackageManager):
@@ -233,33 +230,45 @@ def install(packages: dict):
 
 def install_dotfiles():
     home = os.path.expanduser("~")
-    run_cmd(f"sudo cp {home}/.bashrc {home}/.bashrc.old")
-    run_cmd(f"sudo cp ./dotfiles/.bashrc {home}/.bashrc")
-    print("current .bashrc file backed up to '~/.bashrc.old'")
+    commands = [
+        f"sudo cp {home}/.bashrc {home}/.bashrc.old",
+        f"sudo cp ./dotfiles/.bashrc {home}/.bashrc",
+        "echo Current .bashrc was backed up to '~/.bashrc.old'",
+        f"sudo cp -r {home}/.config {home}/.config_old",
+        f"sudo cp -r ./.config {home}/.config",
+        "echo Current .config folder was backed up to '~/.config_old'",
+    ]
+    for i in commands:
+        run_cmd(i)
 
-    run_cmd(f"sudo cp -r {home}/.config {home}/.config_old")
-    run_cmd(f"sudo cp -r ./.config {home}/.config")
-    print("current .config folder was backed up to '~/.config_old'")
 
+def install_bin():
     progs = os.scandir("./cli")
     progs = [i.path for i in progs if i.is_file()]
     for i in progs:
         name = os.path.basename(i)
+        print(f"Adding {name} to $PATH ...")
         run_cmd(f"sudo cp {i} /usr/local/bin/{name}")
 
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        exit(run_cmd(f"python3 {sys.argv[0]} --help"))
+        py = "python" if sys.platform in WINDOWS else "python3"
+        exit(run_cmd(f"{py} {sys.argv[0]} --help"))
 
-    lists = os.scandir("./lists")
+    lists = os.scandir("./packages")
     lists = [i.path for i in lists if i.is_file()]
     packages_mapping = {os.path.basename(i).split(".")[0]: i for i in lists}
 
     ap = ArgumentParser()
-    ap.add_argument("-dotfiles", action="store_true")
+    ap.add_argument("-bin", action="store_true", help=f"Add scripts inside './bin' to your $PATH")
+    ap.add_argument("-dotfiles", action="store_true", help="Install dotfiles")
     for name, fpath in packages_mapping.items():
-        ap.add_argument(f"-{name}", action="store_true")
+        ap.add_argument(
+            f"-{name}",
+            action="store_true",
+            help=f"Install packages listed in '{fpath}'",
+        )
 
     args = ap.parse_args()
     for arg, val in args.__dict__.items():
@@ -268,3 +277,5 @@ if __name__ == '__main__':
             install(packages)
     if args.dotfiles:
         install_dotfiles()
+    if args.bin:
+        install_bin()
