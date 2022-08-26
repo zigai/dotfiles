@@ -5,7 +5,7 @@
 Settings for:
 - bash
 - fish
-
+- Visual Studio Code ```settings.json``` and snippets.
 
 
 ## packages
@@ -33,8 +33,6 @@ Inside the ```bin``` folder there are few usefull scripts that you can add to yo
 Inside the ```scripts``` folder there are some scripts that you will most likely only run once. 
 Most of them just install programs that can't be installed with a package manager.
 
-## vscode
-My Visual Studio Code ```settings.json``` and snippets.
 
 # Install script usage
 ```
