@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import shlex
 import subprocess
@@ -19,13 +19,16 @@ def usage():
 
 
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 2:
+    if len(sys.argv) < 2:
         usage()
         exit(1)
     if sys.argv[1] in ["-h", "--help"]:
         usage()
         exit(0)
-    msg = sys.argv[1]
+    if len(sys.argv) == 2:
+        msg = sys.argv[1]
+    else:
+        msg = " ".join(sys.argv[1:])
     if len(msg) < 1:
         print("Empty message")
         exit(1)

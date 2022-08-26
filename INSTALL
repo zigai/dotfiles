@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import os
 import re
 import shlex
@@ -233,12 +233,12 @@ def install(packages: dict):
 
 def install_dotfiles():
     home = os.path.expanduser("~")
-    run_cmd(f"cp {home}/.bashrc {home}/.bashrc.old")
-    run_cmd(f"cp ./dotfiles/.bashrc {home}/.bashrc")
+    run_cmd(f"sudo cp {home}/.bashrc {home}/.bashrc.old")
+    run_cmd(f"sudo cp ./dotfiles/.bashrc {home}/.bashrc")
     print("current .bashrc file backed up to '~/.bashrc.old'")
 
-    run_cmd(f"cp -r {home}/.config {home}/.config_old")
-    run_cmd(f"cp -r ./.config {home}/.config")
+    run_cmd(f"sudo cp -r {home}/.config {home}/.config_old")
+    run_cmd(f"sudo cp -r ./.config {home}/.config")
     print("current .config folder was backed up to '~/.config_old'")
 
     progs = os.scandir("./cli")

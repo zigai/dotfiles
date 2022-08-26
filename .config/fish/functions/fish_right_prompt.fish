@@ -28,7 +28,6 @@ function fish_right_prompt
     set_color green
     set -l gbranch (git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/')
     set_color normal
-    #set -l status_branch "["$last_status"]"$gbranch
     set_color reset
     string join " " -- $venv $duration $gbranch $d
 end
