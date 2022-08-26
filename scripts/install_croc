@@ -1,3 +1,0 @@
-#!/bin/bash
-# https://github.com/schollz/croc
-curl https://getcroc.schollz.com | bash
