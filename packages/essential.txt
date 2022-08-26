@@ -1,0 +1,10 @@
+[apt]
+python3-pip
+curl
+bat
+fish
+tmux
+
+[brew]
+lsd
+jq

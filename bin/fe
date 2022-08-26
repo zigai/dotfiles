@@ -1,0 +1,45 @@
+#!/usr/bin/python3
+
+import platform
+import shlex
+import subprocess
+import sys
+
+
+def is_wsl():
+    return sys.platform == "linux" and "microsoft" in platform.platform()
+
+
+def run_cmd(command: str | list, hide_stdout: bool = False):
+    if isinstance(command, str):
+        command = shlex.split(command)
+    out = subprocess.DEVNULL if hide_stdout else None
+    r = subprocess.run(command, stdout=out)
+    return r.returncode
+
+
+def usage():
+    print("ytmp3 - download youtube video as an mp3")
+    print(f"usage: {sys.argv[0]} [url]")
+
+
+def main():
+    if len(sys.argv) > 3:
+        usage()
+        exit(1)
+    if len(sys.argv) == 2 and sys.argv[1] in ["-h", "--help"]:
+        usage()
+        exit(0)
+    if len(sys.argv) == 2:
+        path = sys.argv[1]
+    else:
+        path = "."
+    if sys.platform == "win32" or is_wsl():
+        cmd = f"explorer.exe {path}"
+    else:
+        cmd = f'bash -c "xdg-open {path}" 2> /dev/null'
+    exit(run_cmd(cmd))
+
+
+if __name__ == '__main__':
+    main()
