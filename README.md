@@ -27,7 +27,7 @@ Currently supported package managers: ```apt, brew, pip, scoop, snap, flatpak an
 Support for new package managers can easily be added by inheriting from ```PackageManager``` class inside the ```./INSTALL``` script.
 
 ## bin
-Inside the ```bin``` folder there are few usefull scripts that you can add to your ```$PATH```.
+Inside the ```bin``` folder there are a few usefull scripts that you can add to your ```$PATH```.
 
 ## scripts
 Inside the ```scripts``` folder there are some scripts that you will most likely only run once. 
