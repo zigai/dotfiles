@@ -45,6 +45,7 @@
     "c-cpp-compile-run.run-in-external-terminal": true,
     // Editor
     "editor.codeActionsOnSave": {},
+    "editor.selectionClipboard": false, // disable mouse middle click paste
     "editor.codeLens": false,
     "editor.cursorStyle": "block",
     "editor.fontFamily": "JetBrains Mono, Fira Code, monospace",
