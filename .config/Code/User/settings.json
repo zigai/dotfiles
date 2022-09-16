@@ -42,16 +42,14 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 4
     },
-    "c-cpp-compile-run.run-in-external-terminal": true,
     // Editor
-    "editor.codeActionsOnSave": {},
-    "editor.selectionClipboard": false, // disable mouse middle click paste
     "editor.codeLens": false,
+    "editor.selectionClipboard": false, // disable mouse middle click paste
     "editor.cursorStyle": "block",
     "editor.fontFamily": "JetBrains Mono, Fira Code, monospace",
     "editor.fontLigatures": false,
     "editor.fontSize": 16,
-    "editor.fontWeight": "450",
+    "editor.fontWeight": "600",
     "editor.minimap.showSlider": "always",
     "editor.rulers": [
         100
@@ -76,7 +74,6 @@
     "extensions.ignoreRecommendations": true,
     "files.eol": "\n",
     "files.insertFinalNewline": true,
-    "jupyter.jupyterServerType": "local",
     "launch": {
         "compounds": [],
         "configurations": []
@@ -91,15 +88,21 @@
     "python.analysis.completeFunctionParens": true,
     "python.analysis.typeCheckingMode": "basic",
     "python.formatting.blackArgs": [
-        "--line-length 100"
+        "-l",
+        "100",
     ],
-    "python.formatting.provider": "yapf",
+    "python.formatting.autopep8Args": [
+        "--ignore=E704,E701",
+        "--max-line-length",
+        "100",
+        "--experimental",
+    ],
     "python.formatting.yapfArgs": [
         "--style={based_on_style: google, column_limit: 100, indent_width: 4}"
     ],
     "python.languageServer": "Pylance",
     "python.linting.pylintArgs": [
-        "--disable=C0303,W0603"
+        "--disable=C0303,W0603,C0114,C0115,C0116"
     ],
     "python.linting.pylintEnabled": false,
     "python.terminal.executeInFileDir": true,
@@ -110,7 +113,6 @@
     "terminal.explorerKind": "external",
     "terminal.external.windowsExec": "C:\\Windows\\System32\\cmd.exe",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": -2,
     // Workbench
     "workbench.activityBar.visible": true,
     "workbench.colorCustomizations": {},
@@ -121,5 +123,9 @@
     "workbench.enableExperiments": false,
     "workbench.iconTheme": "material-icon-theme",
     "workbench.startupEditor": "newUntitledFile",
-    "yaml.format.printWidth": 100
+    "yaml.format.printWidth": 100,
+    "vsintellicode.modelDownloadPath": "",
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "window.zoomLevel": -2
 }
