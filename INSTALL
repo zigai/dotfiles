@@ -253,11 +253,11 @@ def install_bin():
     progs = [i.path for i in progs if i.is_file()]
     for i in progs:
         name = os.path.basename(i)
-        print(f"Adding {name} to $PATH ...")
+        print(f"Adding '{name}' to $PATH ...")
         run_cmd(f"sudo cp {i} /usr/local/bin/{name}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) < 2:
         py = "python" if sys.platform in WINDOWS else "python3"
         exit(run_cmd(f"{py} {sys.argv[0]} --help"))
