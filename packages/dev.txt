@@ -27,13 +27,10 @@ GrapeCity.gc-excelviewer
 jeff-hykin.better-cpp-syntax
 PKief.material-icon-theme
 quicktype.quicktype
-rebornix.ruby
 redhat.vscode-xml
 redhat.vscode-yaml
-richie5um2.vscode-sort-json
 shakram02.bash-beautify
 VisualStudioExptTeam.vscodeintellicode
-wingrunr21.vscode-ruby
 
 [pip]
 stdl

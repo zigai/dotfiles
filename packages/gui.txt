@@ -14,7 +14,6 @@ font-manager
 
 [flatpak]
 md.obsidian.Obsidian
-com.dropbox.Client
 org.telegram.desktop
 com.simplenote.Simplenote
 com.mattjakeman.ExtensionManager
