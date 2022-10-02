@@ -35,8 +35,10 @@ VisualStudioExptTeam.vscodeintellicode
 [pip]
 stdl
 black
-yapf
 pretty_errors
+pytest
+rich
+pipreqs
 
 [snap]
 docker
