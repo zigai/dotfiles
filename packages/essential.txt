@@ -4,6 +4,7 @@ curl
 bat
 fish
 tmux
+git
 
 [brew]
 lsd

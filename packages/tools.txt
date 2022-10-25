@@ -16,6 +16,7 @@ wine
 pdfgrep
 htop
 dos2unix
+git
 
 [pip]
 pipreqs
@@ -26,3 +27,6 @@ lsd
 croc
 jq
 z
+
+[cargo]
+--locked zellij
