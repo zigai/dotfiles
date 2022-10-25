@@ -2,35 +2,43 @@
 
 import shlex
 import subprocess
-import sys
 
 
-def run_cmd(command: str | list, hide_stdout: bool = False):
+def run_cmd(command: str | list, quiet: bool = False):
     if isinstance(command, str):
         command = shlex.split(command)
-    out = subprocess.DEVNULL if hide_stdout else None
+    out = subprocess.DEVNULL if quiet else None
     r = subprocess.run(command, stdout=out)
     return r.returncode
 
 
-def usage():
-    print("ytmp3 - download a youtube video as mp3")
-    print(f"usage: {sys.argv[0]} [path]")
-
-
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 2:
-        usage()
-        exit(1)
-    if sys.argv[1] in ["-h", "--help"]:
-        usage()
-        exit(0)
-    if len(sys.argv) == 3:
-        outf = sys.argv[2]
-    else:
-        outf = '%(title)s.%(ext)s'
-    exit(run_cmd(f"yt-dlp --extract-audio --audio-format mp3 -o {outf} {sys.argv[1]}"))
+    import argparse
+
+    ap = argparse.ArgumentParser(description="download youtube videos(s) as mp3")
+    ap.add_argument(
+        "urls",
+        nargs="+",
+        help="video URL(s)",
+    )
+    ap.add_argument(
+        "-o",
+        type=str,
+        help="file output format",
+        default="%(title)s.%(ext)s",
+    )
+    ap.add_argument("-q", action="store_true", help="quiet mode")
+    args = ap.parse_args()
+
+    for url in args.urls:
+        exitcode = run_cmd(
+            f"yt-dlp --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o {args.o} {url}",
+            args.q,
+        )
+        if exitcode != 0:
+            exit(exitcode)
+    exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
