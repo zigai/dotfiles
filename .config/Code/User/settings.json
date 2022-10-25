@@ -65,6 +65,23 @@
             }
         ]
     },
+    "workbench.colorCustomizations": {
+        "[Default Dark+]": {
+            "editor.background": "#101010",
+            "sideBar.background": "#151515", // Open editors, outline, timeline
+            "menu.background": "#151515", // Right click menu ,options menu
+            "terminal.background": "#151515",
+            "tab.inactiveBackground": "#202020",
+            "titleBar.inactiveBackground": "#202020",
+            "titleBar.activeBackground": "#202020",
+            "activityBar.background": "#202020",
+            "editorGroupHeader.tabsBackground": "#151515",
+            "input.background": "#151515",
+            "input.border": "#007acc",
+            "editorWidget.background": "#151515"
+        },
+        "[Default Light+]": {}
+    },
     "editor.wordWrapColumn": 100,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
@@ -115,7 +132,6 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     // Workbench
     "workbench.activityBar.visible": true,
-    "workbench.colorCustomizations": {},
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
