@@ -36,7 +36,9 @@ def find_bin(name: str):
 
 
 class PackageManager:
-    templates: dict[str, str]  # command templates for installing, removing and updating a package
+    templates: dict[
+        str, str
+    ]  # command templates for installing, removing and updating a package
     sudo: bool = False  # run with sudo
     platforms = NOT_SPECIFIED  # platfroms package manager is supported on
     dont_ask: bool = True  # don't ask for conformation when installing packages. needs 'autoconfirm' to be set to work.
@@ -193,15 +195,15 @@ class code(PackageManager):
     }
 
 
-PACKAGE_MANAGERS: dict[str, PackageManager] = {
-    "apt": apt,
-    "brew": brew,
-    "pip": pip,
-    "scoop": scoop,
-    "snap": snap,
-    "flatpak": flatpak,
-    "code": code,
-}  # type: ignore
+class cargo(PackageManager):
+    templates: dict[str, str] = {
+        "install": "install {name}",
+        "update": "install {name}",
+        "remove": "uninstall {name}",
+    }
+
+
+PACKAGE_MANAGERS = {i.__name__: i for i in PackageManager.__subclasses__()}
 
 
 def parse(filepath: str):
@@ -267,13 +269,15 @@ if __name__ == "__main__":
     packages_mapping = {os.path.basename(i).split(".")[0]: i for i in lists}
 
     ap = ArgumentParser()
-    ap.add_argument("-bin", action="store_true", help=f"Add scripts inside './bin' to your $PATH")
-    ap.add_argument("-dotfiles", action="store_true", help="Install dotfiles")
+    ap.add_argument(
+        "-bin", action="store_true", help=f"add scripts inside './bin' to your $PATH"
+    )
+    ap.add_argument("-dotfiles", action="store_true", help="install dotfiles")
     for name, fpath in packages_mapping.items():
         ap.add_argument(
             f"-{name}",
             action="store_true",
-            help=f"Install packages listed in '{fpath}'",
+            help=f"install packages listed in '{fpath}'",
         )
 
     args = ap.parse_args()
