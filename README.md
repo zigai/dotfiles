@@ -37,15 +37,16 @@ Most of them just install programs that can't be installed with a package manage
 # Install script usage
 ```
 usage: ./INSTALL [-h] [-bin] [-dotfiles] [-dev] [-essential] [-gui] [-tools] [-virtualbox_guest]
+
 options:
   -h, --help         show this help message and exit
-  -bin               Add scripts inside './bin' to your $PATH
-  -dotfiles          Install dotfiles
-  -dev               Install packages listed in './packages/dev.txt'
-  -essential         Install packages listed in './packages/essential.txt'
-  -gui               Install packages listed in './packages/gui.txt'
-  -tools             Install packages listed in './packages/tools.txt'
-  -virtualbox_guest  Install packages listed in './packages/virtualbox_guest.txt'
+  -bin               add scripts inside './bin' to your $PATH
+  -dotfiles          install dotfiles
+  -dev               install packages listed in './packages/dev.txt'
+  -essential         install packages listed in './packages/essential.txt'
+  -gui               install packages listed in './packages/gui.txt'
+  -tools             install packages listed in './packages/tools.txt'
+  -virtualbox_guest  install packages listed in './packages/virtualbox_guest.txt'
 ```
 # License
 [MIT License](https://github.com/zigai/dotfiles/blob/master/LICENSE)

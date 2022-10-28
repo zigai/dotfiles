@@ -27,7 +27,7 @@ def main():
         nargs="?",
         type=str,
         default=".",
-        help="starting directory [defaut: .]",
+        help="starting directory [defaut: '.']",
     )
     args = ap.parse_args()
     if sys.platform == "win32" or is_wsl():
