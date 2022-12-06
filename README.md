@@ -12,6 +12,7 @@ Settings for:
 Inside the ```packages``` folder, there are lists of packages that can be installed with ```./INSTALL```.
 
 Package lists are structured with package manager names inside brackets followed by the package name to install with it, each on a new line.
+
 Example:
 ```
 [apt]
@@ -21,7 +22,7 @@ curl
 [brew]
 jq
 ```
-Currently supported package managers: ```apt, brew, pip, scoop, snap, flatpak and code (Visual Studio Code)```.
+Currently supported package managers: ```apt, brew, pip, scoop, snap, flatpak, cargo and code (Visual Studio Code)```.
 
 Support for new package managers can easily be added by inheriting from ```PackageManager``` class inside the ```./INSTALL``` script.
 
