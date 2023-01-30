@@ -9,9 +9,9 @@ Settings for:
 
 
 ## packages
-Inside the ```packages``` folder, there are lists of packages that can be installed with ```./INSTALL```.
+In the ```packages``` folder, you'll find lists of packages that can be installed using the ```./INSTALL``` script. 
+The lists are organized with the package manager name in brackets followed by the package name, each on a separate line.
 
-Package lists are structured with package manager names inside brackets followed by the package name to install with it, each on a new line.
 
 Example:
 ```
@@ -24,14 +24,13 @@ jq
 ```
 Currently supported package managers: ```apt, brew, pip, scoop, snap, flatpak, cargo and code (Visual Studio Code)```.
 
-Support for new package managers can easily be added by inheriting from ```PackageManager``` class inside the ```./INSTALL``` script.
+Support for new package managers can easily be added by inheriting from ```PackageManager``` class that is inside the ```./INSTALL``` script.
 
 ## bin
 Inside the ```bin``` folder, there are a few useful scripts that you can add to your ```$PATH```.
 
 ## scripts
-Inside the ```scripts``` folder, there are some scripts that you will most likely only run once. 
-Most of them just install programs that can't be installed with a package manager.
+The ```scripts``` folder contains scripts that are probably intended to be executed only once, mostly to install programs that cannot be installed using a package manager.
 
 
 # Install script usage
