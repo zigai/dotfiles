@@ -32,7 +32,7 @@ def main():
 
     for url in args.urls:
         exitcode = run_cmd(
-            f"yt-dlp --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o {args.o} {url}",
+            f"yt-dlp --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o -v --convert-thumbnail jpg --ppa 'EmbedThumbnail+ffmpeg_o:-c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"' --exec ffprobe {args.o} {url}",
             args.q,
         )
         if exitcode != 0:
