@@ -22,7 +22,7 @@ def print_green(string: str):
     print(f"{LIGHT_GREEN}{string}{RESET}")
 
 
-def run_cmd(command: str | list, hide_stdout: bool = False):
+def exec_cmd(command: str | list, hide_stdout: bool = False):
     if isinstance(command, str):
         command = shlex.split(command)
     out = subprocess.DEVNULL if hide_stdout else None
@@ -32,13 +32,11 @@ def run_cmd(command: str | list, hide_stdout: bool = False):
 
 def find_bin(name: str):
     command = "where" if sys.platform == "win32" else "which"
-    return run_cmd(f"{command} {name}", True) == 0
+    return exec_cmd(f"{command} {name}", True) == 0
 
 
 class PackageManager:
-    templates: dict[
-        str, str
-    ]  # command templates for installing, removing and updating a package
+    templates: dict[str, str]  # command templates for installing, removing and updating a package
     sudo: bool = False  # run with sudo
     platforms = NOT_SPECIFIED  # platfroms package manager is supported on
     dont_ask: bool = True  # don't ask for conformation when installing packages. needs 'autoconfirm' to be set to work.
@@ -102,7 +100,7 @@ class PackageManager:
         template = self.__get_template(template)
         template = template.replace("{name}", name)
         command = f"{sudo} {self.binary} {template} {self.autoconfirm}"
-        r = run_cmd(command=command)
+        r = exec_cmd(command=command)
         if r != 0:
             self.failed[template].append(name)
         else:
@@ -127,7 +125,7 @@ class apt(PackageManager):
 
     def __init__(self) -> None:
         super().__init__()
-        run_cmd("sudo apt-get update")
+        exec_cmd("sudo apt-get update")
 
 
 class pip(PackageManager):
@@ -182,7 +180,7 @@ class flatpak(PackageManager):
 
     def __init__(self) -> None:
         super().__init__()
-        run_cmd(
+        exec_cmd(
             "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
         )
 
@@ -206,22 +204,22 @@ class cargo(PackageManager):
 PACKAGE_MANAGERS = {i.__name__: i for i in PackageManager.__subclasses__()}
 
 
-def parse(filepath: str):
+def parse_file(filepath: str):
     with open(filepath, "r", encoding="utf-8") as f:
         data = f.read().splitlines()
     data = [i.strip() for i in data]
     data = [i for i in data if i and i[0] != "#"]
     packages = defaultdict(list)
-    current = None
+    current_pm = None
     for line in data:
         if re.match(r"\[+[\w]+\]+", line):
             pm = line[1:-1]
-            current = pm
+            current_pm = pm
         else:
-            if current is None:
+            if current_pm is None:
                 raise ValueError("Invalid file formatting.")
-            if line not in packages[current]:
-                packages[current].append(line)
+            if line not in packages[current_pm]:
+                packages[current_pm].append(line)
     return packages
 
 
@@ -247,7 +245,7 @@ def install_dotfiles():
         "echo Current .config folder was backed up to '~/.config_old'",
     ]
     for i in commands:
-        run_cmd(i)
+        exec_cmd(i)
 
 
 def install_bin():
@@ -256,34 +254,32 @@ def install_bin():
     for i in progs:
         name = os.path.basename(i)
         print(f"Adding '{name}' to $PATH ...")
-        run_cmd(f"sudo cp {i} /usr/local/bin/{name}")
+        exec_cmd(f"sudo cp {i} /usr/local/bin/{name}")
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         py = "python" if sys.platform in WINDOWS else "python3"
-        exit(run_cmd(f"{py} {sys.argv[0]} --help"))
+        exit(exec_cmd(f"{py} {sys.argv[0]} --help"))
 
     lists = os.scandir("./packages")
     lists = [i.path for i in lists if i.is_file()]
     packages_mapping = {os.path.basename(i).split(".")[0]: i for i in lists}
 
     ap = ArgumentParser()
-    ap.add_argument(
-        "-bin", action="store_true", help=f"add scripts inside './bin' to your $PATH"
-    )
+    ap.add_argument("-bin", action="store_true", help=f"add scripts inside './bin' to your $PATH")
     ap.add_argument("-dotfiles", action="store_true", help="install dotfiles")
-    for name, fpath in packages_mapping.items():
+    for name, filepath in packages_mapping.items():
         ap.add_argument(
             f"-{name}",
             action="store_true",
-            help=f"install packages listed in '{fpath}'",
+            help=f"install packages listed in '{filepath}'",
         )
 
     args = ap.parse_args()
     for arg, val in args.__dict__.items():
         if arg in packages_mapping and val == True:
-            packages = parse(packages_mapping[arg])
+            packages = parse_file(packages_mapping[arg])
             install(packages)
     if args.dotfiles:
         install_dotfiles()
