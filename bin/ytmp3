@@ -2,14 +2,34 @@
 
 import shlex
 import subprocess
+import sys
 
 
 def run_cmd(command: str | list, quiet: bool = False):
+    print(command)
     if isinstance(command, str):
         command = shlex.split(command)
     out = subprocess.DEVNULL if quiet else None
     r = subprocess.run(command, stdout=out)
     return r.returncode
+
+
+def ytmp3(
+    urls: list[str],
+    album: str | None = None,
+    output: str = "%(title)s.%(ext)s",
+    quiet: bool = False,
+):
+    if album:
+        album_opt = f"--album='{album}'"
+    else:
+        album_opt = ""
+    for url in urls:
+        command = f'yt-dlp --extract-audio --audio-format mp3 {url} --embed-thumbnail --convert-thumbnail jpg --exec-before-download "ffmpeg -i %(thumbnails.-1.filepath)q -vf \\"crop=if(gt(ih\,iw)\,iw\,ih):if(gt(iw\,ih)\,ih\,iw)\\" _%(thumbnails.-1.filepath)q" --exec-before-download "rm %(thumbnails.-1.filepath)q" --exec-before-download "mv _%(thumbnails.-1.filepath)q %(thumbnails.-1.filepath)q" --output "{output}" --exec "eyeD3 {album_opt} --artist=%(artist)s \'{output}\'"'
+        exitcode = run_cmd(command, quiet)
+        if exitcode != 0:
+            return exitcode
+    return 0
 
 
 def main():
@@ -25,19 +45,15 @@ def main():
         "-o",
         type=str,
         help="file output format",
+        metavar="",
         default="%(title)s.%(ext)s",
     )
+    ap.add_argument("-a", type=str, metavar="", help="album name")
     ap.add_argument("-q", action="store_true", help="quiet mode")
-    args = ap.parse_args()
 
-    for url in args.urls:
-        exitcode = run_cmd(
-            f"yt-dlp --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o -v --convert-thumbnail jpg --ppa 'EmbedThumbnail+ffmpeg_o:-c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"' --exec ffprobe {args.o} {url}",
-            args.q,
-        )
-        if exitcode != 0:
-            exit(exitcode)
-    exit(0)
+    args = ap.parse_args()
+    exit_code = ytmp3(args.urls, args.a, args.o, args.q)
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":
