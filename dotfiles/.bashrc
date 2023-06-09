@@ -111,7 +111,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# functions
 # https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c
 # Extracts any archive(s) (if unp isn't installed)
 extract () {
@@ -177,6 +176,8 @@ alias checkout="git checkout"
 
 alias pir="pip install -r ./requirements.txt"
 alias prq="pipreqs . --force"
+alias pi="pip install ."
+alias pie="pip install -e ."
 
 alias myip="curl http://ipecho.net/plain; echo"
 alias path='printf "%b\n" "${PATH//:/\\n}"'

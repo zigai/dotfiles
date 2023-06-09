@@ -42,6 +42,8 @@ alias checkout "git checkout"
 
 alias pir "pip install -r ./requirements.txt"
 alias prq "pipreqs . --force"
+alias pie "pip install -e ."
+alias pi "pip install ."
 
 alias myip "curl http://ipecho.net/plain; echo"
 alias ai "sudo apt install $1"

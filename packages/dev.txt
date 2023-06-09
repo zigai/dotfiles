@@ -6,8 +6,6 @@ python3-pip
 ruby
 ipython3
 golang-go
-default-jdk
-default-jre
 nodejs
 
 [code]
@@ -39,6 +37,9 @@ pretty_errors
 pytest
 rich
 pipreqs
+flake8
+ruff
+poetry
 
 [snap]
 docker
