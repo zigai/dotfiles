@@ -38,6 +38,9 @@ function uptime {
 }
 
 function reload-profile { & $profile }
+function vscode-settings { code "$env:APPDATA\Code\User\settings.json" }
+function wt-settings { code "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" }
+
 function pkill($name) { Get-Process $name -ErrorAction SilentlyContinue | Stop-Process }
 function pgrep($name) { Get-Process $name }
 function which($name) { Get-Command $name }
@@ -62,10 +65,12 @@ function e { Set-Location E:\ }
 function f { Set-Location C:\Files }
 function p { Set-Location C:\Files\Projects }
 function repos { Set-Location C:\Files\Repos }
+function .. { Set-Location .. }
+function ... { Set-Location ..//.. }
+# function fe { explorer.exe . }
 
 function path { $env:PATH -split ';' | ForEach-Object { "$_" } }
 function df { Get-PSDrive -PSProvider FileSystem }
-function fe { explorer.exe . }
 function cat {
     bat --paging=never --plain --theme='Visual Studio Dark+' @args
 }
@@ -150,7 +155,8 @@ function gs { git status -sb }
 function gc { git commit }
 function gb { git checkout }
 function branch { git checkout }
-function scoopy { Invoke-FuzzyScoop }
+function scoop-ui { Invoke-FuzzyScoop }
+function htop { btop }
 
 # Fzf
 $env:FZF_DEFAULT_OPTS = @"
