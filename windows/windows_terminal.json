@@ -5,16 +5,16 @@
         {
             "command": {
                 "action": "switchToTab",
-                "index": 4
+                "index": 7
             },
-            "id": "User.switchToTab.F747588A"
+            "id": "User.switchToTab.D7681B66"
         },
         {
             "command": {
                 "action": "switchToTab",
-                "index": 7
+                "index": 4
             },
-            "id": "User.switchToTab.D7681B66"
+            "id": "User.switchToTab.F747588A"
         },
         {
             "command": {
@@ -24,18 +24,14 @@
             "id": "User.copy.644BA8F2"
         },
         {
-            "command": {
-                "action": "newTab"
-            },
-            "id": "User.newTab.5DEADB41"
-        },
-        {
             "command": "paste",
             "id": "User.paste"
         },
         {
-            "command": "find",
-            "id": "User.find"
+            "command": {
+                "action": "newTab"
+            },
+            "id": "User.newTab.5DEADB41"
         },
         {
             "command": {
@@ -44,6 +40,10 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
         },
         {
             "command": {
@@ -69,22 +69,26 @@
         {
             "command": {
                 "action": "switchToTab",
+                "index": 5
+            },
+            "id": "User.switchToTab.75247157"
+        },
+        {
+            "command": {
+                "action": "switchToTab",
                 "index": 2
             },
             "id": "User.switchToTab.87C324ED"
+        },
+        {
+            "command": "duplicateTab",
+            "id": "User.duplicateTab"
         },
         {
             "command": {
                 "action": "prevTab"
             },
             "id": "User.prevTab.0"
-        },
-        {
-            "command": {
-                "action": "switchToTab",
-                "index": 5
-            },
-            "id": "User.switchToTab.75247157"
         },
         {
             "command": {
@@ -108,10 +112,6 @@
             "id": "User.splitPane.864CD510"
         },
         {
-            "command": "duplicateTab",
-            "id": "User.duplicateTab"
-        },
-        {
             "command": "closePane",
             "id": "User.closePane"
         }
@@ -122,38 +122,34 @@
     "copyOnSelect": true,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "disableAnimations": true,
-    "firstWindowPreference": "persistedWindowLayout",
+    "firstWindowPreference": "defaultProfile",
     "focusFollowMouse": false,
     "initialCols": 180,
     "initialRows": 50,
     "keybindings": [
-        {
-            "id": null,
-            "keys": "ctrl+alt+6"
-        },
         {
             "id": "User.switchToTab.D7681B66",
             "keys": "alt+8"
         },
         {
             "id": null,
+            "keys": "ctrl+alt+6"
+        },
+        {
+            "id": null,
             "keys": "ctrl+shift+t"
-        },
-        {
-            "id": "User.closePane",
-            "keys": "ctrl+x"
-        },
-        {
-            "id": "User.switchToTab.75247157",
-            "keys": "alt+6"
         },
         {
             "id": null,
             "keys": "ctrl+alt+1"
         },
         {
-            "id": null,
-            "keys": "ctrl+alt+3"
+            "id": "User.switchToTab.75247157",
+            "keys": "alt+6"
+        },
+        {
+            "id": "User.closePane",
+            "keys": "ctrl+x"
         },
         {
             "id": null,
@@ -162,6 +158,10 @@
         {
             "id": null,
             "keys": "ctrl+alt+2"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+alt+3"
         },
         {
             "id": null,
@@ -406,5 +406,5 @@
     "theme": "dark",
     "themes": [],
     "useAcrylicInTabRow": true,
-    "windowingBehavior": "useAnyExisting"
+    "windowingBehavior": "useNew"
 }
