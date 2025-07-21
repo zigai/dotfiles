@@ -136,11 +136,7 @@ extract () {
     done
 }
 
-
-# Aliases
 alias sudo='sudo '
-
-alias sysinfo="inxi -Fxz"
 
 if command -v duf &> /dev/null; then
     alias df="duf"
@@ -198,7 +194,10 @@ alias ipy="ipython3"
 
 alias myip="curl http://ipecho.net/plain; echo"
 alias edit-bashrc="code ~/.bashrc"
+alias edit-fishrc="code ~/.config/fish/config.fish"
 alias tmxa="tmux attach-session -t $1"
+alias gpustats="watch -n 1 nvidia-smi"
+alias sysinfo="inxi -Fxz"
 
 alias gc='git commit -m'
 alias gp='git push'
