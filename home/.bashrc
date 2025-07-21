@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=1000000
+HISTFILESIZE=2000000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -140,54 +140,163 @@ extract () {
 # Aliases
 alias sudo='sudo '
 
-alias ..="cd .."
-alias ...="cd .. && cd .."
-alias cd..="cd .."
-alias cd.="pwd"
+alias sysinfo="inxi -Fxz"
+
+if command -v duf &> /dev/null; then
+    alias df="duf"
+fi
+
+if command -v batcat &> /dev/null; then
+    alias cat='batcat --paging=never --plain --theme="Visual Studio Dark+"'
+fi
+
+path() {
+    echo "$PATH" | tr ':' '\n'
+}
+
+if command -v lsd &> /dev/null; then
+    alias ls='lsd'
+    alias l='lsd -a'
+    alias a='lsd -la'
+    alias la='lsd -a'
+    alias ll='lsd -la'
+    alias lt='lsd --tree'
+else
+    alias ls='ls --color=auto'
+    alias l='ls -a --color=auto'
+    alias a='ls -la --color=auto'
+    alias la='ls -a --color=auto'
+    alias ll='ls -la --color=auto'
+    lt() { tree "$@" 2>/dev/null || find "${1:-.}" -type d | head -20; }
+fi
+
 alias h="cd ~"
 alias home="cd ~"
 alias d="cd /mnt/d"
 alias e="cd /mnt/e"
 alias dw="cd ~/Downloads"
+alias p="cd ~/Projects"
+alias repos="cd ~/Repos"
+alias ..="cd .."
+alias ...="cd .. && cd .."
+alias cd..="cd .."
+mkcd() { mkdir -p "$1" && cd "$1"; }
 
-alias ls='lsd'
-alias l='ls -a'
-alias la='ls -a'
-alias a='ls -la'
-alias ll="ls -la"
-alias lt='ls --tree'
+alias c='clear'
+alias cl='clear'
+alias cls='clear'
 
-alias c="clear"
-alias cl="clear"
-alias cls="clear"
+md5() { md5sum "$@"; }
+sha1() { sha1sum "$@"; }
+sha256() { sha256sum "$@"; }
 
+pip() { python -m pip "$@"; }
 alias python="python3"
 alias py="python3"
 alias py3="python3"
 alias ipy="ipython3"
 
-alias gp="git push"
-alias ga="git add ."
-alias gpl="git pull"
-alias gd="git diff"
-alias gs="git status -sb"
-alias gc="git commit"
-alias checkout="git checkout"
-
-alias pir="pip install -r ./requirements.txt"
-alias prq="pipreqs . --force"
-alias pi="pip install ."
-alias pie="pip install -e ."
-
 alias myip="curl http://ipecho.net/plain; echo"
-alias path='printf "%b\n" "${PATH//:/\\n}"'
-alias ai="sudo apt install $1"
-alias bashrc="nvim ~/.bashrc"
-alias cat='batcat --paging=never --plain'
-alias df="df -h"
-alias ex="extract"
+alias edit-bashrc="code ~/.bashrc"
 alias tmxa="tmux attach-session -t $1"
 
-. ~/z.sh
+alias gc='git commit -m'
+alias gp='git push'
+alias ga='git add .'
+alias pal='git pull'
+alias gd='git diff'
+alias gs='git status -sb'
+alias gb='git checkout'
+alias branch='git checkout'
+
+xd() {
+    git add .
+    git commit -m "update"
+    git push
+}
+
+ff() {
+    if ! command -v fzf &> /dev/null; then
+        echo "fzf not installed"
+        return 1
+    fi
+    
+    local file=$(fzf --layout=reverse --cycle --border --preview-window=right,60%,border-left --height 50% --preview 'batcat --style=numbers --color=always --line-range :300 {} 2>/dev/null || cat {} 2>/dev/null || echo "Binary file"')
+    
+    if [ -n "$file" ]; then
+        local extension="${file##*.}"
+        case "$extension" in
+            txt|md|json|yml|yaml|sh|py|js|cpp|c|ts|rs|go)
+                $EDITOR "$file"
+                ;;
+            pdf)
+                if command -v evince &> /dev/null; then
+                    evince "$file" &
+                elif command -v okular &> /dev/null; then
+                    okular "$file" &
+                else
+                    xdg-open "$file" 2>/dev/null || open "$file" 2>/dev/null
+                fi
+                ;;
+            *)
+                xdg-open "$file" 2>/dev/null || open "$file" 2>/dev/null
+                ;;
+        esac
+    fi
+}
+
+if command -v fzf &> /dev/null; then
+    export FZF_DEFAULT_OPTS="
+        --color=hl:red,fg:bright-white,header:red
+        --color=info:magenta,pointer:white,marker:white
+        --color=fg+:bright-white,prompt:magenta,hl+:red
+        --color=border:bright-black
+        --layout=reverse
+        --cycle
+        --scroll-off=5
+        --border
+        --height 70%
+        --preview-window=right,60%,border-left
+        --preview 'batcat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {} 2>/dev/null || echo \"Binary file\"'
+    "
+
+    export FZF_COMPLETION_TRIGGER="'" 
+    
+    if command -v fd &> /dev/null; then
+        _fzf_compgen_path() {
+            fd --hidden --follow --exclude ".git" . "$1"
+        }
+        _fzf_compgen_dir() {
+            fd --type d --hidden --follow --exclude ".git" . "$1"
+        }
+    else
+        _fzf_compgen_path() {
+            find .  -not -path '*/.*' -not -path '*/.git/*' 2>/dev/null | sed 's|^\./||'
+        }
+        _fzf_compgen_dir() {
+            find . -type d -not -path '*/.*' 2>/dev/null | sed 's|^\./||'
+        }
+    fi
+    
+    bind -x '"\C-e": ff'
+    
+    eval "$(fzf --bash)"
+
+    _fzf_setup_completion path cat less more head tail bat vim nvim nano emacs code subl mv cp ln git python python3 node mpv
+    _fzf_setup_completion dir cd pushd rmdir tree git cloc tokei
+fi
+
+
+activate() {
+    if [ -d ".venv" ]; then
+        source .venv/bin/activate
+    elif [ -d "venv" ]; then
+        source venv/bin/activate
+    else
+        echo "No virtual environment found (.venv or venv directory)"
+    fi
+}
+
 export PATH="$HOME/.cargo/bin:$PATH"
 LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
+eval "$(oh-my-posh init bash --config /home/zigai/Projects/dotfiles/config/ohmyposh.json)"
