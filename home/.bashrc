@@ -186,7 +186,7 @@ md5() { md5sum "$@"; }
 sha1() { sha1sum "$@"; }
 sha256() { sha256sum "$@"; }
 
-pip() { python -m pip "$@"; }
+pip() { python3 -m pip "$@"; }
 alias python="python3"
 alias py="python3"
 alias py3="python3"
