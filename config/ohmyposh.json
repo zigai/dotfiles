@@ -29,7 +29,7 @@
                     "properties": {
                         "cache_duration": "none"
                     },
-                    "template": " {{ if .WSL }}\uebcc {{ end }}{{.Icon}}",
+                    "template": " {{.Icon}}",
                     "foreground": "#b2bec3",
                     "background": "#222222",
                     "type": "os",
