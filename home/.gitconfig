@@ -1,19 +1,17 @@
 [credential]
-	helper = manager
-[credential "helperselector"]
-	selected = <no helper>
+	helper = store
 [user]
 	email = ziga.ivansek@gmail.com
 	name = zigai
 [core]
-    pager = delta
+	pager = delta
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [delta]
-    navigate = true 
-    dark = true     
+	navigate = true
+	dark = true
 	side-by-side = true
 	line-numbers = true
 	syntax-theme = TwoDark
 [merge]
-    conflictstyle = zdiff3
+	conflictstyle = zdiff3
