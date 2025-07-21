@@ -1,15 +1,9 @@
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
-if (Get-Alias -Name cat -ErrorAction SilentlyContinue) {
-    Remove-Item alias:cat
-}
-
-if (Get-Alias -Name ls -ErrorAction SilentlyContinue) {
-    Remove-Item alias:ls
-}
-
-if (Get-Alias -Name gp -ErrorAction SilentlyContinue) {
-    Remove-Item -Force alias:gp
+foreach ($alias in @('cat', 'ls', 'gp', 'pwd')) {
+    if (Get-Alias -Name $alias -ErrorAction SilentlyContinue) {
+        Remove-Item -Force alias:$alias
+    }
 }
 
 function Test-CommandExists {
@@ -22,11 +16,11 @@ $EDITOR = if (Test-CommandExists code) { 'code' }
 elseif (Test-CommandExists notepad++) { 'notepad++' }
 else { 'notepad' }
 
-function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
+function cat {
+    bat --paging=never --plain --theme='Visual Studio Dark+' @args
 }
+
+function touch { param($name) New-Item -ItemType "file" -Path . -Name $name }
 
 function uptime {
     if ($PSVersionTable.PSVersion.Major -eq 5) {
@@ -37,27 +31,34 @@ function uptime {
     }
 }
 
-function reload-profile { & $profile }
-function vscode-settings { code "$env:APPDATA\Code\User\settings.json" }
-function wt-settings { code "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" }
+function pwd {
+    $currentPath = Get-Location
+    $pathString = $currentPath.Path
+    Write-Host $pathString
+    Set-Clipboard $pathString
+}
+
+function unzip ($file) {
+    Write-Output("Extracting", $file, "to", $PWD)
+    $fullFile = Get-ChildItem -Path $PWD -Filter $file | ForEach-Object { $_.FullName }
+    Expand-Archive -Path $fullFile -DestinationPath $PWD
+}
+
+function sysinfo { Get-ComputerInfo }
+function path { $env:PATH -split ';' | ForEach-Object { "$_" } }
+function df { Get-PSDrive -PSProvider FileSystem }
 
 function pkill($name) { Get-Process $name -ErrorAction SilentlyContinue | Stop-Process }
 function pgrep($name) { Get-Process $name }
 function which($name) { Get-Command $name }
-function mkcd { param($dir) mkdir $dir -Force; Set-Location $dir }
-function touch { param($name) New-Item -ItemType "file" -Path . -Name $name }
-function sysinfo { Get-ComputerInfo }
 
-function ls { lsd }
-function l { lsd -a }
-function a { lsd -la }
-function la { lsd -a }
-function ll { lsd -la }
-function lt { lsd --tree }
 
-function c { Clear-Host }
-function cl { Clear-Host }
-function cls { Clear-Host }
+function ls { lsd @args }
+function l { lsd -a @args }
+function a { lsd -la @args }
+function la { lsd -a @args }
+function ll { lsd -la @args }
+function lt { lsd --tree @args }
 
 function home { Set-Location ~ }
 function d { Set-Location D:\ }
@@ -67,22 +68,30 @@ function p { Set-Location C:\Files\Projects }
 function repos { Set-Location C:\Files\Repos }
 function .. { Set-Location .. }
 function ... { Set-Location ..//.. }
-# function fe { explorer.exe . }
+function mkcd { param($dir) mkdir $dir -Force; Set-Location $dir }
 
-function path { $env:PATH -split ';' | ForEach-Object { "$_" } }
-function df { Get-PSDrive -PSProvider FileSystem }
-function cat {
-    bat --paging=never --plain --theme='Visual Studio Dark+' @args
-}
-function edit-profile { code $PROFILE }
+function c { Clear-Host }
+function cl { Clear-Host }
+function cls { Clear-Host }
+
 function cpy { Set-Clipboard $args[0] }
 function pst { Get-Clipboard }
-function grep { rg }
-function md5 { Get-FileHash -Algorithm MD5 $args }
-function sha1 { Get-FileHash -Algorithm SHA1 $args }
-function sha256 { Get-FileHash -Algorithm SHA265 $args }
-function pip { python -m pip @args }
 
+function md5 { Get-FileHash -Algorithm MD5 @args }
+function sha1 { Get-FileHash -Algorithm SHA1 @args }
+function sha256 { Get-FileHash -Algorithm SHA256 @args }
+
+function pip { python -m pip @args }
+function ipy { ipython @args }
+function cloc { tokei -s lines @args }
+function grep { rg @args }
+function htop { btop @args }
+function scoop-ui { Invoke-FuzzyScoop @args }
+
+function reload-profile { & $profile }
+function edit-profile { code $PROFILE }
+function vscode-settings { code "$env:APPDATA\Code\User\settings.json" }
+function wt-settings { code "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" }
 
 function admin {
     if ($args.Count -gt 0) {
@@ -129,17 +138,14 @@ function activate {
     & $activateScript
 }
 
-function cloc {
-    tokei -s lines @args
-}
-
-Set-Alias -Name sudo -Value admin
-
-
-# Git
-function gc {
-    git commit -m "$args"
-}
+function gc { git commit -m @args }
+function gp { git push @args }
+function ga { git add . @args }
+function pal { git pull @args }
+function gd { git diff @args }
+function gs { git status -sb @args }
+function gb { git checkout @args }
+function branch { git checkout @args }
 
 function xd {
     git add .
@@ -147,18 +153,9 @@ function xd {
     git push
 }
 
-function gp { git push }
-function ga { git add . }
-function pal { git pull }
-function gd { git diff }
-function gs { git status -sb }
-function gc { git commit }
-function gb { git checkout }
-function branch { git checkout }
-function scoop-ui { Invoke-FuzzyScoop }
-function htop { btop }
+Set-Alias -Name sudo -Value admin
 
-# Fzf
+# FZF 
 $env:FZF_DEFAULT_OPTS = @"
 --color=hl:$($Flavor.Red),fg:$($Flavor.Text),header:$($Flavor.Red)
 --color=info:$($Flavor.Mauve),pointer:$($Flavor.Rosewater),marker:$($Flavor.Rosewater)
@@ -188,7 +185,6 @@ Set-PSReadLineOption -Colors @{
 }
 
 Set-PSReadLineKeyHandler -Chord "Ctrl+f" -Function AcceptSuggestion
-
 Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+h'
 
 Set-PSReadLineKeyHandler -Chord 'Ctrl+e' -ScriptBlock {
