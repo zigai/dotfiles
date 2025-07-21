@@ -298,4 +298,18 @@ activate() {
 
 export PATH="$HOME/.cargo/bin:$PATH"
 LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
-eval "$(oh-my-posh init bash --config /home/zigai/Projects/dotfiles/config/ohmyposh.json)"
+
+OH_MY_POSH_CONFIGS=(
+    /home/zigai/Projects/dotfiles/config/ohmyposh.json
+    /mnt/c/Files/Projects/dotfiles/config/ohmyposh.json
+)
+if command -v oh-my-posh >/dev/null 2>&1; then
+    for config_path in "${OH_MY_POSH_CONFIGS[@]}"; do
+        if [[ -f "$config_path" ]]; then
+            eval "$(oh-my-posh init bash --config "$config_path")"
+            break
+        fi
+    done
+fi
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
