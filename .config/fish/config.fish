@@ -192,12 +192,21 @@ end
 bind \ch fzf_history
 
 function activate
+    set -l envdir
     if test -d ".venv"
-        source .venv/bin/activate
+        set envdir ".venv"
     else if test -d "venv"
-        source venv/bin/activate
+        set envdir "venv"
     else
         echo "No virtual environment found (.venv or venv directory)"
+        return 1
+    end
+
+    if test -f "$envdir/bin/activate.fish"
+        source "$envdir/bin/activate.fish"
+    else
+        echo "Missing $envdir/bin/activate.fish. Recreate the venv: python -m venv $envdir"
+        return 1
     end
 end
 
