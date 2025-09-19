@@ -136,6 +136,8 @@ extract () {
     done
 }
 
+LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
+
 alias sudo='sudo '
 
 if command -v duf &> /dev/null; then
@@ -296,8 +298,32 @@ activate() {
     fi
 }
 
-export PATH="$HOME/.cargo/bin:$PATH"
-LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
+eval "$(fnm env --use-on-cd --shell bash)"
+
+PREPEND_PATH_DIRS=(
+    "$HOME/.cargo/bin"
+    "$HOME/.local/bin"
+    "$HOME/projects/ubuntu-install/bin"
+)
+
+APPEND_PATH_DIRS=(
+    "$HOME/.local/share/flatpak/exports/bin"
+    "/var/lib/flatpak/exports/bin"
+)
+
+for dir in "${PREPEND_PATH_DIRS[@]}"; do
+    if [[ -d "$dir" ]] && [[ ":$PATH:" != *":$dir:"* ]]; then
+        PATH="$dir:$PATH"
+    fi
+done
+
+for dir in "${APPEND_PATH_DIRS[@]}"; do
+    if [[ -d "$dir" ]] && [[ ":$PATH:" != *":$dir:"* ]]; then
+        PATH="$PATH:$dir"
+    fi
+done
+export PATH
+
 
 OH_MY_POSH_CONFIGS=(
     /home/zigai/Projects/dotfiles/config/ohmyposh.json
@@ -313,3 +339,14 @@ if command -v oh-my-posh >/dev/null 2>&1; then
 fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+. "$HOME/.local/bin/env"
+
+
+# pnpm
+export PNPM_HOME="/home/zigai/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

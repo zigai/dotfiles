@@ -17,6 +17,10 @@ function xd
     git push
 end
 
+function tmxa
+    tmux attach-session -t $argv
+end
+
 function fzf_history
     history merge
     set command (history | fzf --layout=reverse --height 40% --border)
@@ -25,6 +29,8 @@ function fzf_history
     end
     commandline -f repaint
 end
+
+bind \ch fzf_history
 
 function ff
     set file (fzf)
@@ -39,10 +45,6 @@ function ff
                 xdg-open $file
         end
     end
-end
-
-function tmxa
-    tmux attach-session -t $argv
 end
 
 set -gx FZF_DEFAULT_OPTS "\
@@ -95,6 +97,7 @@ if command -v fzf >/dev/null 2>&1
     bind \ce ff
     fzf --fish | source
 end
+
 
 
 alias sudo='sudo '
@@ -164,6 +167,26 @@ function pip
    python3 -m pip $argv
 end
 
+function activate
+    set -l envdir
+    if test -d ".venv"
+        set envdir ".venv"
+    else if test -d "venv"
+        set envdir "venv"
+    else
+        echo "No virtual environment found (.venv)"
+        return 1
+    end
+
+    if test -f "$envdir/bin/activate.fish"
+        source "$envdir/bin/activate.fish"
+    else
+        echo "Not found: $envdir/bin/activate.fish"
+        return 1
+    end
+end
+
+
 alias python="python3"
 alias py="python3"
 alias py3="python3"
@@ -183,72 +206,25 @@ alias gs='git status -sb'
 alias gb='git checkout'
 alias branch='git checkout'
 
-function xd
-   git add .
-   git commit -m "update"
-   git push
-end
 
-bind \ch fzf_history
 
-function activate
-    set -l envdir
-    if test -d ".venv"
-        set envdir ".venv"
-    else if test -d "venv"
-        set envdir "venv"
-    else
-        echo "No virtual environment found (.venv or venv directory)"
-        return 1
-    end
 
-    if test -f "$envdir/bin/activate.fish"
-        source "$envdir/bin/activate.fish"
-    else
-        echo "Missing $envdir/bin/activate.fish. Recreate the venv: python -m venv $envdir"
-        return 1
+begin
+    set -l path_dirs \
+        $HOME/.cargo/bin \
+        $HOME/.local/bin \
+        $HOME/projects/ubuntu-install/bin \
+        $HOME/Bin/whisper.cpp/
+
+    for dir in $path_dirs
+        if test -d $dir
+            fish_add_path $dir
+        end
     end
 end
 
-fish_add_path /home/zigai/.local/bin
-fish_add_path /home/zigai/projects/ubuntu-install/bin
 
-set -gx PATH $HOME/.cargo/bin $PATH # add Cargo binaries to path
-
-# Pyenv
-set -gx PYENV_ROOT $HOME/.pyenv
-fish_add_path $PYENV_ROOT/bin
-if command -q pyenv
-    pyenv init - | source
-    status --is-interactive; and pyenv virtualenv-init - | source
-end
-set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
-
-if test -f /home/linuxbrew/.linuxbrew/bin/brew
-    eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-end
-
-# NVM (Node Version Manager) configuration
-set -gx NVM_DIR $HOME/.nvm
-
-function nvm
-    if not test -d $NVM_DIR
-        echo "NVM is not installed"
-        return 1
-    end
-    
-    if not set -q NVM_BIN
-        set -gx NVM_BIN $NVM_DIR/versions/node/(command ls -t $NVM_DIR/versions/node | head -1)/bin
-        set -gx PATH $NVM_BIN $PATH
-    end
-    
-    bash -c "source $NVM_DIR/nvm.sh --no-use && nvm $argv"
-end
-
-if test -s $NVM_DIR/bash_completion
-    bash -c "source $NVM_DIR/bash_completion"
-end
-
+fnm env --use-on-cd --shell fish | source
 
 set OH_MY_POSH_CONFIGS \
     /home/zigai/Projects/dotfiles/config/ohmyposh.json \
