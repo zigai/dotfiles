@@ -1,3 +1,31 @@
-#!/bin/bash
-# https://gist.github.com/greeflas/431bc50c23532eee8a7d6c1d603f3921
-curl https://gist.githubusercontent.com/greeflas/431bc50c23532eee8a7d6c1d603f3921/raw | bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/JetBrains/Toolbox"
+
+if [[ -d "$INSTALL_DIR" ]]; then
+  echo "JetBrains Toolbox is already installed"
+  exit 0
+fi
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+URL="https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+ARCHIVE="$TMP_DIR/toolbox.tar.gz"
+
+wget --show-progress -qO "$ARCHIVE" "$URL"
+
+tar -C "$TMP_DIR" -xf "$ARCHIVE"
+
+BIN="$(find "$TMP_DIR" -type f -name 'jetbrains-toolbox' -print -quit || true)"
+if [[ -z "${BIN:-}" ]]; then
+  echo "Error: jetbrains-toolbox binary not found in archive"
+  exit 1
+fi
+
+chmod +x "$BIN"
+# Launch the installer GUI; it will install into $INSTALL_DIR
+("$BIN" >/dev/null 2>&1 &) || true
+
+echo "JetBrains Toolbox launcher started"
