@@ -1,0 +1,25 @@
+
+# Run `ghostty +show-config --default --docs` to view a list of all 
+# available config options and their default values
+# Additionally, each config option is also explained 
+# in detail on Ghostty's website, at <https://ghostty.org/docs/config>
+# Ghostty can reload the configuration while running by using the menu
+# options or the bound key (default: Command + Shift + comma on macOS and
+# Control + Shift + comma on other platforms). Not all config options can be
+# reloaded while running; some only apply to new windows and others may require
+# a full restart to take effect
+
+window-width = 140
+window-height = 70
+
+theme = 3024 Night
+font-family = "JetBrainsMono NFM SemiBold"
+font-size = 11
+
+# clipboard-read = allow
+
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard
+
+command = "fish"
+wait-after-command = true

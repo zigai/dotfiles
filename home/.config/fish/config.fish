@@ -30,7 +30,6 @@ function fzf_history
     commandline -f repaint
 end
 
-bind \ch fzf_history
 
 function ff
     set file (fzf)
@@ -98,9 +97,8 @@ if command -v fzf >/dev/null 2>&1
     fzf --fish | source
 end
 
-
-
 alias sudo='sudo '
+
 if command -v duf >/dev/null 2>&1
    alias df="duf"
 end
@@ -130,6 +128,8 @@ else
        tree $argv 2>/dev/null || find (test -n "$argv[1]"; and echo $argv[1]; or echo ".") -type d | head -20
    end
 end
+
+alias cloc="tokei -s lines"
 
 alias h="cd ~"
 alias home="cd ~"
@@ -206,9 +206,6 @@ alias gs='git status -sb'
 alias gb='git checkout'
 alias branch='git checkout'
 
-
-
-
 begin
     set -l path_dirs \
         $HOME/.cargo/bin \
@@ -222,7 +219,6 @@ begin
         end
     end
 end
-
 
 fnm env --use-on-cd --shell fish | source
 
@@ -238,3 +234,7 @@ if command -v oh-my-posh >/dev/null 2>&1
         end
     end
 end
+
+set -x WHISPERCPP_MODELS_DIR "/home/zigai/Bin/whisper.cpp/models"
+
+bind \ch fzf_history

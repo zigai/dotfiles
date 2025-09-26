@@ -298,7 +298,6 @@ activate() {
     fi
 }
 
-eval "$(fnm env --use-on-cd --shell bash)"
 
 PREPEND_PATH_DIRS=(
     "$HOME/.cargo/bin"
@@ -324,6 +323,7 @@ for dir in "${APPEND_PATH_DIRS[@]}"; do
 done
 export PATH
 
+export WHISPERCPP_MODELS_DIR="/home/zigai/Bin/whisper.cpp/models"
 
 OH_MY_POSH_CONFIGS=(
     /home/zigai/Projects/dotfiles/config/ohmyposh.json
@@ -339,9 +339,7 @@ if command -v oh-my-posh >/dev/null 2>&1; then
 fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-. "$HOME/.local/bin/env"
-
+eval "$(fnm env --use-on-cd --shell bash)"
 
 # pnpm
 export PNPM_HOME="/home/zigai/.local/share/pnpm"
@@ -350,3 +348,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+. "/home/zigai/.deno/env"
+source /home/zigai/.local/share/bash-completion/completions/deno.bash
