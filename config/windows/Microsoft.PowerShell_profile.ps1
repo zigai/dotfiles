@@ -16,8 +16,15 @@ $EDITOR = if (Test-CommandExists code) { 'code' }
 elseif (Test-CommandExists notepad++) { 'notepad++' }
 else { 'notepad' }
 
-function cat {
-    bat --paging=never --plain --theme='Visual Studio Dark+' @args
+if (Test-CommandExists 'bat') {
+    function cat {
+        & bat --paging=never --plain --theme='Visual Studio Dark+' @args
+    }
+}
+else {
+    function cat {
+        Get-Content @args
+    }
 }
 
 function touch { param($name) New-Item -ItemType "file" -Path . -Name $name }
@@ -46,19 +53,34 @@ function unzip ($file) {
 
 function sysinfo { Get-ComputerInfo }
 function path { $env:PATH -split ';' | ForEach-Object { "$_" } }
-function df { Get-PSDrive -PSProvider FileSystem }
+if (Test-CommandExists 'duf') {
+    function df { & duf @args }
+}
+else {
+    function df { Get-PSDrive -PSProvider FileSystem }
+}
 
 function pkill($name) { Get-Process $name -ErrorAction SilentlyContinue | Stop-Process }
 function pgrep($name) { Get-Process $name }
 function which($name) { Get-Command $name }
 
 
-function ls { lsd @args }
-function l { lsd -a @args }
-function a { lsd -la @args }
-function la { lsd -a @args }
-function ll { lsd -la @args }
-function lt { lsd --tree @args }
+if (Test-CommandExists 'lsd') {
+    function ls { & lsd @args }
+    function l { & lsd -a @args }
+    function a { & lsd -la @args }
+    function la { & lsd -a @args }
+    function ll { & lsd -la @args }
+    function lt { & lsd --tree @args }
+}
+else {
+    function ls { Get-ChildItem @args }
+    function l { Get-ChildItem -Force @args }
+    function a { Get-ChildItem -Force @args }
+    function la { Get-ChildItem -Force @args }
+    function ll { Get-ChildItem -Force @args }
+    function lt { Get-ChildItem -Recurse @args }
+}
 
 function home { Set-Location ~ }
 function d { Set-Location D:\ }
@@ -83,9 +105,28 @@ function sha256 { Get-FileHash -Algorithm SHA256 @args }
 
 function pip { python -m pip @args }
 function ipy { ipython @args }
-function cloc { tokei -s lines @args }
-function grep { rg @args }
-function htop { btop @args }
+if (Test-CommandExists 'tokei') {
+    function cloc { & tokei -s lines @args }
+}
+elseif (-not (Test-CommandExists 'cloc')) {
+    function cloc { Write-Warning 'Neither tokei nor cloc is installed.' }
+}
+
+function grep {
+    if (Test-CommandExists 'rg') {
+        & rg @args
+    }
+    else {
+        Select-String @args
+    }
+}
+
+if (Test-CommandExists 'btop') {
+    function htop { & btop @args }
+}
+elseif (-not (Test-CommandExists 'htop')) {
+    function htop { Write-Warning 'Neither btop nor htop is installed.' }
+}
 function scoop-ui { Invoke-FuzzyScoop @args }
 
 function reload-profile { & $profile }

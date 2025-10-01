@@ -135,6 +135,14 @@ extract () {
         fi
     done
 }
+sysinfo() {
+    if command -v inxi &> /dev/null; then
+        inxi -Fxz "$@"
+    else
+        uname -a
+        lscpu 2>/dev/null || true
+    fi
+}
 
 LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
 
@@ -146,6 +154,10 @@ fi
 
 if command -v batcat &> /dev/null; then
     alias cat='batcat --paging=never --plain --theme="Visual Studio Dark+"'
+fi
+
+if command -v tokei &> /dev/null; then
+    alias cloc='tokei -s lines'
 fi
 
 path() {
@@ -199,7 +211,10 @@ alias edit-bashrc="code ~/.bashrc"
 alias edit-fishrc="code ~/.config/fish/config.fish"
 alias tmxa="tmux attach-session -t $1"
 alias gpustats="watch -n 1 nvidia-smi"
-alias sysinfo="inxi -Fxz"
+
+if command -v btop &> /dev/null; then
+    alias htop='btop'
+fi
 
 alias gc='git commit -m'
 alias gp='git push'
@@ -323,8 +338,6 @@ for dir in "${APPEND_PATH_DIRS[@]}"; do
 done
 export PATH
 
-export WHISPERCPP_MODELS_DIR="/home/zigai/Bin/whisper.cpp/models"
-
 OH_MY_POSH_CONFIGS=(
     /home/zigai/Projects/dotfiles/config/ohmyposh.json
     /mnt/c/Files/Projects/dotfiles/config/ohmyposh.json
@@ -349,5 +362,10 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-. "/home/zigai/.deno/env"
-source /home/zigai/.local/share/bash-completion/completions/deno.bash
+if [[ -r "/home/zigai/.deno/env" ]]; then
+  source "/home/zigai/.deno/env"
+fi
+
+if [[ $- == *i* ]] && command -v deno >/dev/null 2>&1 && [[ -r "/home/zigai/.local/share/bash-completion/completions/deno.bash" ]]; then
+  source "/home/zigai/.local/share/bash-completion/completions/deno.bash"
+fi

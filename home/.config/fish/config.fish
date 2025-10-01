@@ -1,3 +1,5 @@
+set fish_greeting
+
 function reload-profile
     source ~/.config/fish/config.fish
 end
@@ -7,8 +9,14 @@ function mkcd
 end
 
 function sysinfo
-    uname -a
-    lscpu
+    if command -v inxi >/dev/null 2>&1
+        inxi -Fxz $argv
+    else
+        uname -a
+        if command -v lscpu >/dev/null 2>&1
+            lscpu
+        end
+    end
 end
 
 function xd
@@ -129,7 +137,13 @@ else
    end
 end
 
-alias cloc="tokei -s lines"
+if command -v tokei >/dev/null 2>&1
+    alias cloc="tokei -s lines"
+end
+
+if command -v btop >/dev/null 2>&1
+    alias htop="btop"
+end
 
 alias h="cd ~"
 alias home="cd ~"
@@ -186,7 +200,6 @@ function activate
     end
 end
 
-
 alias python="python3"
 alias py="python3"
 alias py3="python3"
@@ -196,7 +209,6 @@ alias edit-bashrc="code ~/.bashrc"
 alias edit-fishrc="code ~/.config/fish/config.fish"
 alias tmxa="tmux attach-session -t"
 alias gpustats="watch -n 1 nvidia-smi"
-alias sysinfo="inxi -Fxz"
 alias gc='git commit -m'
 alias gp='git push'
 alias ga='git add .'
@@ -234,7 +246,5 @@ if command -v oh-my-posh >/dev/null 2>&1
         end
     end
 end
-
-set -x WHISPERCPP_MODELS_DIR "/home/zigai/Bin/whisper.cpp/models"
 
 bind \ch fzf_history
