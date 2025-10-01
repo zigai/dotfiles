@@ -207,8 +207,6 @@ $env:FZF_DEFAULT_OPTS = @"
 --scroll-off=5
 --border
 --height 70%
---preview-window=right,60%,border-left
---preview 'bat --style=numbers --color=always --line-range :500 {}'
 "@
 
 $env:_PSFZF_FZF_DEFAULT_OPTS = @"
@@ -226,7 +224,8 @@ Set-PSReadLineOption -Colors @{
 }
 
 Set-PSReadLineKeyHandler -Chord "Ctrl+f" -Function AcceptSuggestion
-Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+h'
+Remove-PSReadLineKeyHandler -Chord 'Ctrl+r' -ErrorAction SilentlyContinue
+Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r'
 
 Set-PSReadLineKeyHandler -Chord 'Ctrl+e' -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()

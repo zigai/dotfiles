@@ -152,8 +152,8 @@ if command -v duf &> /dev/null; then
     alias df="duf"
 fi
 
-if command -v batcat &> /dev/null; then
-    alias cat='batcat --paging=never --plain --theme="Visual Studio Dark+"'
+if command -v bat &> /dev/null; then
+    alias cat='bat --paging=never --plain --theme="Visual Studio Dark+"'
 fi
 
 if command -v tokei &> /dev/null; then
@@ -237,7 +237,7 @@ ff() {
         return 1
     fi
     
-    local file=$(fzf --layout=reverse --cycle --border --preview-window=right,60%,border-left --height 50% --preview 'batcat --style=numbers --color=always --line-range :300 {} 2>/dev/null || cat {} 2>/dev/null || echo "Binary file"')
+    local file=$(fzf --layout=reverse --cycle --border --preview-window=right,60%,border-left --height 50% --preview 'bat --style=numbers --color=always --theme="Visual Studio Dark+" --line-range :300 {} 2>/dev/null || cat {} 2>/dev/null || echo "Binary file"')
     
     if [ -n "$file" ]; then
         local extension="${file##*.}"
@@ -272,10 +272,15 @@ if command -v fzf &> /dev/null; then
         --scroll-off=5
         --border
         --height 70%
-        --preview-window=right,60%,border-left
-        --preview 'batcat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {} 2>/dev/null || echo \"Binary file\"'
     "
 
+    export FZF_CTRL_R_OPTS="
+        --layout=reverse
+        --height 40%
+        --border
+        --preview-window=hidden
+    "
+    
     export FZF_COMPLETION_TRIGGER="'" 
     
     if command -v fd &> /dev/null; then
@@ -317,7 +322,8 @@ activate() {
 PREPEND_PATH_DIRS=(
     "$HOME/.cargo/bin"
     "$HOME/.local/bin"
-    "$HOME/projects/ubuntu-install/bin"
+    "$HOME/Programs/llama.cpp"
+    "$HOME/Programs/whisper.cpp"
 )
 
 APPEND_PATH_DIRS=(

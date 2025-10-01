@@ -40,7 +40,7 @@ end
 
 
 function ff
-    set file (fzf)
+    set file (fzf --layout=reverse --cycle --border --preview-window=right,60%,border-left --height 50% --preview "bat --style=numbers --color=always --theme="Visual Studio Dark+" --line-range :300 {} 2>/dev/null || cat {} 2>/dev/null || echo \"Binary file\"")
     if test -n "$file"
         set ext (string lower (path extension "$file"))
         switch $ext
@@ -63,9 +63,7 @@ set -gx FZF_DEFAULT_OPTS "\
     --cycle \
     --scroll-off=5 \
     --border \
-    --height 70% \
-    --preview-window=right,60%,border-left \
-    --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+    --height 70%"
 
 if command -v fzf >/dev/null 2>&1
     set -gx FZF_DEFAULT_OPTS "\
@@ -77,9 +75,7 @@ if command -v fzf >/dev/null 2>&1
         --cycle \
         --scroll-off=5 \
         --border \
-        --height 70% \
-        --preview-window=right,60%,border-left \
-        --preview 'batcat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {} 2>/dev/null || echo \"Binary file\"'"
+        --height 70%"
     
     set -gx FZF_COMPLETION_TRIGGER "'"
     
@@ -111,8 +107,8 @@ if command -v duf >/dev/null 2>&1
    alias df="duf"
 end
 
-if command -v batcat >/dev/null 2>&1
-   alias cat='batcat --paging=never --plain --theme="Visual Studio Dark+"'
+if command -v bat >/dev/null 2>&1
+   alias cat='bat --paging=never --plain --theme="Visual Studio Dark+"'
 end
 
 function path
@@ -126,6 +122,7 @@ if command -v lsd >/dev/null 2>&1
    alias la='lsd -a'
    alias ll='lsd -la'
    alias lt='lsd --tree'
+   alias tree='lsd --tree'
 else
    alias ls='ls --color=auto'
    alias l='ls -a --color=auto'
@@ -206,7 +203,7 @@ alias py3="python3"
 alias ipy="ipython3"
 alias myip="curl http://ipecho.net/plain; echo"
 alias edit-bashrc="code ~/.bashrc"
-alias edit-fishrc="code ~/.config/fish/config.fish"
+alias edit-fish-config="code ~/.config/fish/config.fish"
 alias tmxa="tmux attach-session -t"
 alias gpustats="watch -n 1 nvidia-smi"
 alias gc='git commit -m'
@@ -247,4 +244,5 @@ if command -v oh-my-posh >/dev/null 2>&1
     end
 end
 
-bind \ch fzf_history
+bind -e \cr
+bind \cr fzf_history

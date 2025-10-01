@@ -141,7 +141,7 @@
                             "pwsh": " ❯",
                             "shell": "❯",
                             "xonsh": " ❯",
-                            "zsh": " $"
+                            "zsh": " ❯"
                         }
                     },
                     "template": "{{ .Name }} ",
