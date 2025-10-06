@@ -61,13 +61,14 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+# GCC colors example (disabled by default)
+# export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # “alert” helper
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e "s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//")"'
 
 # source extra aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
-# [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # completion (zsh)
 autoload -Uz compinit
@@ -345,6 +346,7 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # if command -v ftb-tmux-popup >/dev/null; then
 #   zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # fi
+
 
 bindkey -e
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
