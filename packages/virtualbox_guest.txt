@@ -1,3 +1,0 @@
-[apt]
-virtualbox-guest-utils-hwe
-virtualbox-guest-x11-hwe
