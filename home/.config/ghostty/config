@@ -22,6 +22,10 @@ gtk-titlebar = false
 
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
+# Send the keyboard Context Menu / Option key to tmux as User0.
+keybind = context_menu=csi:29~
+# Prevent Ctrl-Space from closing a Ghostty tab/surface or reaching tmux/apps.
+keybind = ctrl+space=ignore
 
 theme = Paul Millr
 background = #000000
