@@ -153,7 +153,7 @@ function ff {
                 & code $file
             }
             { $_ -in '.pdf' } {
-                & sumatrapdf $file  
+                & sumatrapdf $file
             }
             default {
                 Invoke-Item $file
@@ -196,7 +196,7 @@ function xd {
 
 Set-Alias -Name sudo -Value admin
 
-# FZF 
+# FZF
 $env:FZF_DEFAULT_OPTS = @"
 --color=hl:$($Flavor.Red),fg:$($Flavor.Text),header:$($Flavor.Red)
 --color=info:$($Flavor.Mauve),pointer:$($Flavor.Rosewater),marker:$($Flavor.Rosewater)

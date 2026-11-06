@@ -76,14 +76,14 @@ if command -v fzf >/dev/null 2>&1
         --scroll-off=5 \
         --border \
         --height 70%"
-    
+
     set -gx FZF_COMPLETION_TRIGGER "'"
-    
+
     if command -v fd >/dev/null 2>&1
         function _fzf_compgen_path
             fd --hidden --follow --exclude ".git" . $argv[1]
         end
-        
+
         function _fzf_compgen_dir
             fd --type d --hidden --follow --exclude ".git" . $argv[1]
         end
@@ -91,12 +91,12 @@ if command -v fzf >/dev/null 2>&1
         function _fzf_compgen_path
             find . -not -path '*/.*' -not -path '*/.git/*' 2>/dev/null | sed 's|^\./||'
         end
-        
+
         function _fzf_compgen_dir
             find . -type d -not -path '*/.*' 2>/dev/null | sed 's|^\./||'
         end
     end
-    
+
     bind \ce ff
     fzf --fish | source
 end

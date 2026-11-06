@@ -321,7 +321,7 @@ _zp_safe_paste() {
   ZSH_HIGHLIGHT_MAXLENGTH=0
   zle autosuggest-disable 2>/dev/null || true
 
-  zle .bracketed-paste  
+  zle .bracketed-paste
 
   zle autosuggest-enable 2>/dev/null || true
   ZSH_HIGHLIGHT_HIGHLIGHTERS=("${_old_hl[@]}")
@@ -331,7 +331,7 @@ zle -N bracketed-paste _zp_safe_paste
 
 
 # fzf-tab config
-zstyle ':completion:*:git-checkout:*' sort false 
+zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no

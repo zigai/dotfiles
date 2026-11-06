@@ -8,7 +8,7 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-    
+
     tab name="projects" {
         pane {
             cwd "/mnt/d/0.projects"

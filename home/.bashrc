@@ -78,7 +78,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
-    
+
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -236,9 +236,9 @@ ff() {
         echo "fzf not installed"
         return 1
     fi
-    
+
     local file=$(fzf --layout=reverse --cycle --border --preview-window=right,60%,border-left --height 50% --preview 'bat --style=numbers --color=always --theme="Visual Studio Dark+" --line-range :300 {} 2>/dev/null || cat {} 2>/dev/null || echo "Binary file"')
-    
+
     if [ -n "$file" ]; then
         local extension="${file##*.}"
         case "$extension" in
@@ -280,9 +280,9 @@ if command -v fzf &> /dev/null; then
         --border
         --preview-window=hidden
     "
-    
-    export FZF_COMPLETION_TRIGGER="'" 
-    
+
+    export FZF_COMPLETION_TRIGGER="'"
+
     if command -v fd &> /dev/null; then
         _fzf_compgen_path() {
             fd --hidden --follow --exclude ".git" . "$1"
@@ -298,9 +298,9 @@ if command -v fzf &> /dev/null; then
             find . -type d -not -path '*/.*' 2>/dev/null | sed 's|^\./||'
         }
     fi
-    
+
     bind -x '"\C-e": ff'
-    
+
     eval "$(fzf --bash)"
 
     _fzf_setup_completion path cat less more head tail bat vim nvim nano emacs code subl mv cp ln git python python3 node mpv
