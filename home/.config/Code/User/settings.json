@@ -1,211 +1,204 @@
 {
-    // Editor
-    "editor.fontFamily": "JetBrainsMono Nerd Font, monospace",
-    "editor.fontSize": 14,
-    "editor.fontWeight": "600",
-    "editor.wordWrapColumn": 100,
-    "editor.fontLigatures": false,
-    "editor.cursorStyle": "block",
-    "editor.selectionClipboard": false, // Disable mouse middle click paste
-    "editor.minimap.showSlider": "always",
-    "editor.snippetSuggestions": "none",
-    "editor.codeLens": false,
-    "editor.inlineSuggest.enabled": true,
-    "editor.indentSize": "tabSize",
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file",
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit"
+  // Editor
+  "editor.fontFamily": "JetBrainsMono Nerd Font, monospace",
+  "editor.fontSize": 14,
+  "editor.fontWeight": "600",
+  "editor.wordWrapColumn": 100,
+  "editor.fontLigatures": false,
+  "editor.cursorStyle": "block",
+  "editor.selectionClipboard": false, // Disable mouse middle click paste
+  "editor.minimap.showSlider": "always",
+  "editor.snippetSuggestions": "none",
+  "editor.codeLens": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.indentSize": "tabSize",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [100],
+  "C_Cpp.default.cppStandard": "c++20",
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[yaml]": {
+    "editor.autoIndent": "advanced",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.sortOrder": "type",
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  "terminal.explorerKind": "external",
+  "terminal.external.windowsExec": "C:\\Windows\\System32\\cmd.exe",
+  "terminal.integrated.enableFileLinks": "on",
+  "terminal.integrated.rightClickBehavior": "default",
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+  "extensions.ignoreRecommendations": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "telemetry.telemetryLevel": "off",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "path-intellisense.showHiddenFiles": true,
+  "gotoNextPreviousMember.symbolKinds": [
+    "class",
+    "enum",
+    "package",
+    "module",
+    "method",
+    "namespace",
+    "constant",
+    "constructor",
+    "function"
+  ],
+  // Python
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "standard",
+  "python.terminal.executeInFileDir": true,
+  "python.analysis.autoImportCompletions": false,
+  "python.analysis.completeFunctionParens": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["-l", "100"],
+  "python.formatting.yapfArgs": [
+    "--style={based_on_style: google, column_limit: 100, indent_width: 4}"
+  ],
+  "python.linting.pylintEnabled": false,
+  "python.linting.pylintArgs": ["--disable=C0303,W0603,C0114,C0115,C0116"],
+  "redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "yaml.format.printWidth": 100,
+  // Appearance
+  "window.customTitleBarVisibility": "auto",
+  "window.titleBarStyle": "custom",
+  "workbench.tips.enabled": false,
+  "workbench.colorCustomizations": {
+    "[Default Dark Modern]": {
+      "editor.background": "#050505",
+      "sideBar.background": "#101010",
+      "menu.background": "#101010",
+      "terminal.background": "#000000",
+      "tab.inactiveBackground": "#151515",
+      "titleBar.inactiveBackground": "#151515",
+      "titleBar.activeBackground": "#151515",
+      "activityBar.background": "#151515",
+      "commandCenter.background": "#000000",
+      "editorGroupHeader.tabsBackground": "#101010",
+      "input.background": "#101010",
+      "input.border": "#007acc",
+      "editorWidget.background": "#101010",
+      "quickInput.background": "#101010"
     },
-    "editor.rulers": [
-        100
-    ],
-    "C_Cpp.default.cppStandard": "c++20",
-    "[c]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
+    "[Default Light+]": {
+      "editor.background": "#f9f6ee"
+    }
+  },
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "apc.electron": {
+    "titleBarStyle": "hidden",
+    "transparent": true,
+    "opacity": 0.98,
+    "vibrancy": "fullscreen-ui",
+    "visualEffectState": "active"
+  },
+  "apc.statusBar": {
+    "position": "editor-bottom",
+    "height": 20,
+    "fontSize": 11
+  },
+  "apc.header": {
+    "height": 30
+  },
+  "apc.listRow": {
+    "height": 20
+  },
+  "apc.stylesheet": {
+    ".sidebar > .composite": "height: 10px !important",
+    ".title-label": "display: none !important",
+    ".inline-tabs-placeholder": "display: none !important",
+    ".split-view-view .visible": "background-color: #23262e!important",
+    ".titlebar-left": {
+      "max-width": "70px !important"
     },
-    "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
+    ".titlebar-center": {
+      "margin": "0 !important"
     },
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features",
+    ".action-item.menu-entry": {
+      "display": "none !important"
     },
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
+    ".monaco-inputbox": {
+      "border-radius": "6px!important"
     },
-    "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
+    ".monaco-inputbox>.ibwrapper>.input, .monaco-inputbox>.ibwrapper>.mirror": {
+      "padding": "8px 10px !important"
     },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
+    ".quick-input-list > .monaco-list > .monaco-scrollable-element": {
+      "padding": "2px !important"
     },
-    "[yaml]": {
-        "editor.autoIndent": "advanced",
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "explorer.fileNesting.enabled": true,
-    "explorer.sortOrder": "type",
-    "explorer.fileNesting.patterns": {
-        "*.ts": "${capture}.js",
-        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-        "*.jsx": "${capture}.js",
-        "*.tsx": "${capture}.ts",
-        "tsconfig.json": "tsconfig.*.json",
-        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
-        "*.sqlite": "${capture}.${extname}-*",
-        "*.db": "${capture}.${extname}-*",
-        "*.sqlite3": "${capture}.${extname}-*",
-        "*.db3": "${capture}.${extname}-*",
-        "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
-    },
-    "terminal.explorerKind": "external",
-    "terminal.external.windowsExec": "C:\\Windows\\System32\\cmd.exe",
-    "terminal.integrated.enableFileLinks": "on",
-    "terminal.integrated.rightClickBehavior": "default",
-    "extensions.autoUpdate": "onlyEnabledExtensions",
-    "extensions.ignoreRecommendations": true,
-    "files.eol": "\n",
-    "files.insertFinalNewline": true,
-    "files.exclude": {
-        "**/__pycache__": true
-    },
-    "telemetry.telemetryLevel": "off",
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "left"
-    },
-    "path-intellisense.showHiddenFiles": true,
-    "gotoNextPreviousMember.symbolKinds": [
-        "class",
-        "enum",
-        "package",
-        "module",
-        "method",
-        "namespace",
-        "constant",
-        "constructor",
-        "function",
-    ],
-    // Python
-    "python.languageServer": "Pylance",
-    "python.analysis.typeCheckingMode": "standard",
-    "python.terminal.executeInFileDir": true,
-    "python.analysis.autoImportCompletions": false,
-    "python.analysis.completeFunctionParens": true,
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "-l",
-        "100",
-    ],
-    "python.formatting.yapfArgs": [
-        "--style={based_on_style: google, column_limit: 100, indent_width: 4}"
-    ],
-    "python.linting.pylintEnabled": false,
-    "python.linting.pylintArgs": [
-        "--disable=C0303,W0603,C0114,C0115,C0116"
-    ],
-    "redhat.telemetry.enabled": false,
-    "security.workspace.trust.untrustedFiles": "open",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "yaml.format.printWidth": 100,
-    // Appearance
-    "window.customTitleBarVisibility": "auto",
-    "window.titleBarStyle": "custom",
-    "workbench.tips.enabled": false,
-    "workbench.colorCustomizations": {
-        "[Default Dark Modern]": {
-            "editor.background": "#050505",
-            "sideBar.background": "#101010",
-            "menu.background": "#101010",
-            "terminal.background": "#000000",
-            "tab.inactiveBackground": "#151515",
-            "titleBar.inactiveBackground": "#151515",
-            "titleBar.activeBackground": "#151515",
-            "activityBar.background": "#151515",
-            "commandCenter.background": "#000000",
-            "editorGroupHeader.tabsBackground": "#101010",
-            "input.background": "#101010",
-            "input.border": "#007acc",
-            "editorWidget.background": "#101010",
-            "quickInput.background": "#101010",
-        },
-        "[Default Light+]": {
-            "editor.background": "#f9f6ee"
-        }
-    },
-    "workbench.editor.highlightModifiedTabs": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
-    "apc.electron": {
-        "titleBarStyle": "hidden",
-        "transparent": true,
-        "opacity": 0.98,
-        "vibrancy": "fullscreen-ui",
-        "visualEffectState": "active"
-    },
-    "apc.statusBar": {
-        "position": "editor-bottom",
-        "height": 20,
-        "fontSize": 11
-    },
-    "apc.header": {
-        "height": 30
-    },
-    "apc.listRow": {
-        "height": 20
-    },
-    "apc.stylesheet": {
-        ".sidebar > .composite": "height: 10px !important",
-        ".title-label": "display: none !important",
-        ".inline-tabs-placeholder": "display: none !important",
-        ".split-view-view .visible": "background-color: #23262e!important",
-        ".titlebar-left": {
-            "max-width": "70px !important"
-        },
-        ".titlebar-center": {
-            "margin": "0 !important"
-        },
-        ".action-item.menu-entry": {
-            "display": "none !important"
-        },
-        ".monaco-inputbox": {
-            "border-radius": "6px!important"
-        },
-        ".monaco-inputbox>.ibwrapper>.input, .monaco-inputbox>.ibwrapper>.mirror": {
-            "padding": "8px 10px !important"
-        },
-        ".quick-input-list > .monaco-list > .monaco-scrollable-element": {
-            "padding": "2px !important"
-        },
-        ".quick-input-widget": {
-            "position": "absolute;",
-            "width": "1500x; !important",
-            "z-index": "2550;",
-            "left": "50%;",
-            "top": "25% !important; ",
-            "margin-left": "-300px;",
-            "-webkit-app-region": "no-drag;",
-            "border-radius": "6px;",
-            //"font-size": "16px;",
-        }
-    },
-    "workbench.enableExperiments": false,
-    "workbench.iconTheme": "material-icon-theme",
-    "github.copilot.enable": {
-        "*": false,
-        "plaintext": false,
-        "markdown": false,
-        "scminput": false,
-        "yaml": true
-    },
-    "svelte.ask-to-enable-ts-plugin": false,
-    "workbench.startupEditor": "none",
+    ".quick-input-widget": {
+      "position": "absolute;",
+      "width": "1500x; !important",
+      "z-index": "2550;",
+      "left": "50%;",
+      "top": "25% !important; ",
+      "margin-left": "-300px;",
+      "-webkit-app-region": "no-drag;",
+      "border-radius": "6px;"
+      //"font-size": "16px;",
+    }
+  },
+  "workbench.enableExperiments": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": true
+  },
+  "svelte.ask-to-enable-ts-plugin": false,
+  "workbench.startupEditor": "none"
 }
